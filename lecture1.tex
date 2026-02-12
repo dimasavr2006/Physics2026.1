@@ -31,16 +31,21 @@
 \begin{itemize}
 	\item \textbf{Система уравнений Максвелла:}
 	\begin{equation}
-		\begin{cases}
-			\div \vec{D} = \rho \quad \quad \vec{D} = \varepsilon_0 \varepsilon \vec{E}, \quad \vec{B} = \mu_0 \mu \vec{H} \quad \text{--- материальные уравнения} \\
-			\quad \rightarrow \text{эл. поле, создаваемое зарядами потенциально} \\
-			\div \vec{B} = 0 \\
-			\quad \rightarrow \text{магнит. поле замкнуто (носит вихревой характер)} \\
-			\curl \vec{E} = - \pdv{\vec{B}}{t} \\
-			\quad \rightarrow \text{вихревое поле} \\
-			\curl \vec{H} = \vec{j} + \pdv{\vec{D}}{t}
-		\end{cases}
-		\quad \text{константы:} \quad c^2 = \frac{1}{\varepsilon_0 \mu_0}
+		\left\{
+		\begin{aligned}
+			&\div \vec{D} = \rho && \text{\footnotesize (эл. поле создается зарядами)} \\
+			&\div \vec{B} = 0 && \text{\footnotesize (магнитное поле замкнуто)} \\
+			&\curl \vec{E} = - \pdv{\vec{B}}{t} && \text{\footnotesize (вихревое поле)} \\
+			&\curl \vec{H} = \vec{j} + \pdv{\vec{D}}{t}
+		\end{aligned}
+		\right.
+		\quad
+		\begin{aligned}
+			&\text{Материальные уравнения:} \\
+			&\vec{D} = \varepsilon_0 \varepsilon \vec{E}, \quad \vec{B} = \mu_0 \mu \vec{H} \\
+			&\text{Константы:} \\
+			&c^2 = \frac{1}{\varepsilon_0 \mu_0}
+		\end{aligned}
 	\end{equation}
 \end{itemize}
 
