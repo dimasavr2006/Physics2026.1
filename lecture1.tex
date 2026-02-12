@@ -1,0 +1,163 @@
+\section{ОПТИКА}
+
+\begin{itemize}
+	\item \textbf{Предмет оптики} --- физ. природа и свойства света, оптические явления, взаимодействие света с веществом.
+	\item \textbf{Свет} --- электромагнитная волна (оптическое излучение).
+\end{itemize}
+
+\begin{center}
+	\begin{tikzpicture}[
+		node distance=1.5cm,
+		every node/.style={draw=orange!50, rounded corners, align=center, thick, fill=white},
+		arrow/.style={->, orange!70, thick, >=stealth}
+		]
+		\node (optics) {Оптика};
+		\node (quantum) [above right=0.5cm and 2cm of optics] {\textbf{квантовая} \\ (свет -- поток частиц)};
+		\node (wave) [right=3cm of optics] {\textbf{волновая} \\ (свет -- электромагнитная \\ волна)};
+		\node (geo) [below right=0.5cm and 2cm of optics] {\textbf{геометрическая} \\ (свет -- лучи)};
+		
+		\draw[arrow] (optics) -- (quantum);
+		\draw[arrow] (optics) -- (wave);
+		\draw[arrow] (optics) -- (geo);
+	\end{tikzpicture}
+\end{center}
+
+\section{Волновое уравнение электромагнитной волны в прозрачной изотропной среде}
+
+\begin{nb}
+	\textbf{Прозрачная}, значит --- не поглощается и не рассеивается в среде.
+\end{nb}
+
+\begin{itemize}
+	\item \textbf{Система уравнений Максвелла:}
+	\begin{equation}
+		\begin{cases}
+			\div \vec{D} = \rho \quad \quad \vec{D} = \varepsilon_0 \varepsilon \vec{E}, \quad \vec{B} = \mu_0 \mu \vec{H} \quad \text{--- материальные уравнения} \\
+			\quad \rightarrow \text{эл. поле, создаваемое зарядами потенциально} \\
+			\div \vec{B} = 0 \\
+			\quad \rightarrow \text{магнит. поле замкнуто (носит вихревой характер)} \\
+			\curl \vec{E} = - \pdv{\vec{B}}{t} \\
+			\quad \rightarrow \text{вихревое поле} \\
+			\curl \vec{H} = \vec{j} + \pdv{\vec{D}}{t}
+		\end{cases}
+		\quad \text{константы:} \quad c^2 = \frac{1}{\varepsilon_0 \mu_0}
+	\end{equation}
+\end{itemize}
+
+\begin{proofbox}
+	Пусть $\vec{j}=0$, $\rho=0$, тогда:
+	\begin{align*}
+		\curl(\curl \vec{E}) &= -\pdv{}{t} \curl \vec{B} = -\mu_0 \mu \pdv{}{t} \curl \vec{H} = -\mu_0 \mu \pdv{}{t} \qty(\pdv{\vec{D}}{t}) = \\
+		&= -\mu_0 \mu \varepsilon_0 \varepsilon \frac{\partial^2 \vec{E}}{\partial t^2} = -\frac{\varepsilon \mu}{c^2} \frac{\partial^2 \vec{E}}{\partial t^2}
+	\end{align*}
+	С другой стороны (векторное тождество):
+	\[
+	\curl(\curl \vec{E}) = [\vec{\nabla}, [\vec{\nabla}, \vec{E}]] = (\vec{\nabla}, (\vec{\nabla}, \vec{E})) - \vec{\nabla}^2 \vec{E} = - \vec{\nabla}^2 \vec{E} = -\Delta \vec{E}
+	\]
+	где $\Delta = \pdv[2]{}{x} + \pdv[2]{}{y} + \pdv[2]{}{z}$, и учтено, что $\div \vec{E} = 0$.
+\end{proofbox}
+
+Волновое ур-ние эл/м волны в прозрачной среде:
+\begin{equation}
+	\Delta \vec{E} - \frac{\varepsilon \mu}{c^2} \frac{\partial^2 \vec{E}}{\partial t^2} = 0
+\end{equation}
+
+В вакууме $\varepsilon=1$, $\mu=1$, значит:
+\begin{equation}
+	\Delta \vec{E} - \frac{1}{c^2} \frac{\partial^2 \vec{E}}{\partial t^2} = 0 \quad \Rightarrow \quad \Box \vec{E} = 0 \quad \text{(\textcolor{orange}{уравнение Даламбера})}
+\end{equation}
+где оператор Даламбера $\Box = \Delta - \frac{1}{c^2} \frac{\partial^2}{\partial t^2}$.
+
+Аналогично для магнитного поля: $\Delta \vec{B} - \frac{\varepsilon \mu}{c^2} \frac{\partial^2 \vec{B}}{\partial t^2} = 0$.
+
+\begin{theorem}{Волновое уравнение в среде}{wave_eq_medium}
+	\[ \Delta \vec{E} - \frac{1}{v^2} \frac{\partial^2 \vec{E}}{\partial t^2} = 0 \]
+	В прозрачной среде (т.к. свет распр. медленнее $\rightarrow$ берем $v$).
+	\[ v = \frac{c}{\sqrt{\varepsilon \mu}}, \quad n = \frac{c}{v} \]
+\end{theorem}
+
+\begin{itemize}
+	\item \textbf{Вектор Пойнтинга:} $\vec{S} = [\vec{E}, \vec{H}]$.
+	\item \textbf{Объемная плотность энергии} (проникающ. в единицу времени через единичную площадку):
+	\[ w = \dv{W}{V} = w_{\ni} + w_{\mu} = \frac{(\vec{E}, \vec{D})}{2} + \frac{(\vec{B}, \vec{H})}{2} \]
+	\item \textbf{Закон Джоуля-Ленца} (сохранение энергии):
+	\[ \dv{w}{t} = -(\vec{j}, \vec{E}) - \div \vec{S} \]
+	Если $\vec{j}=0$, то $\pdv{w}{t} = - \div \vec{S}$.
+	\item \textbf{Интенсивность:} $I = \langle |\vec{S}| \rangle_T$.
+\end{itemize}
+
+\section{Частное решение волнового уравнения. Монохроматические поля}
+
+\begin{itemize}
+	\item Ищем решение в виде разделения переменных: $\vec{E}(\vec{r}, t) = \vec{E}(\vec{r}) \cdot T(t)$.
+\end{itemize}
+
+\begin{proofbox}
+	Подставим в волновое уравнение:
+	\[ \Delta \vec{E}(\vec{r}) T(t) - \frac{1}{v^2} \cdot \frac{\partial^2}{\partial t^2} (\vec{E}(\vec{r}) \cdot T(t)) = 0 \]
+	\[ T(t) \Delta \vec{E}(\vec{r}) - \frac{1}{v^2} \vec{E}(\vec{r}) \cdot \ddot{T}(t) = 0 \quad \bigg| \cdot \frac{1}{\vec{E}(\vec{r}) T(t)} \]
+	\[ \frac{\Delta \vec{E}(\vec{r})}{\vec{E}(\vec{r})} - \frac{1}{v^2} \cdot \frac{\ddot{T}(t)}{T(t)} = 0 \implies \begin{cases} \frac{\Delta \vec{E}}{\vec{E}} = \text{const} = -k^2 \\ \frac{1}{v^2} \cdot \frac{\ddot{T}}{T} = -k^2 \end{cases} \]
+\end{proofbox}
+
+\begin{equation} \label{eq:helmholtz}
+	\Delta \vec{E}(\vec{r}) + k^2 \vec{E}(\vec{r}) = 0 \quad \text{--- \textcolor{orange}{уравнение Гельмгольца}}
+\end{equation}
+
+Второе уравнение:
+\[ \ddot{T}(t) + \omega^2 T(t) = 0, \quad \text{где } \omega = k v \]
+Это \textbf{уравнение гармонических колебаний}.
+
+\begin{definition}{Монохроматическое поле}{monochromatic}
+	\[ \tilde{T} = C \cos(\omega t + \varphi_0) \]
+	Используя формулу Эйлера $e^{iz} = \cos z + i \sin z$, $\cos z = \Re e^{iz}$:
+	\[ T = \Re \tilde{C} \cdot \exp(i \omega t) \]
+	$\hookrightarrow$ гармонические колебания $\rightarrow$ монохроматическое поле.
+\end{definition}
+
+\begin{equation}
+	\begin{cases}
+		\vec{E}(\vec{r}, t) = \vec{E}(\vec{r}) \cdot \exp(i \omega t) & \text{--- частное решение волнового} \\
+		\Delta \vec{E}(\vec{r}) + k^2 \vec{E}(\vec{r}) = 0 & \text{ур-ния (монохромат. волны)}
+	\end{cases}
+\end{equation}
+В каждой точке пр-ва колебания на одной частоте (монохроматические волны).
+
+\section{Плоские монохроматические волны}
+
+\[ \Delta \vec{E}(\vec{r}) + k^2 \vec{E}(\vec{r}) = 0, \quad \vec{r} = (x, y, z)^T \]
+Пусть $\vec{E}(\vec{r}) = X(x) \cdot Y(y) \cdot Z(z)$.
+
+\[ \qty(\pdv[2]{}{x} + \pdv[2]{}{y} + \pdv[2]{}{z}) XYZ + k^2 XYZ = 0 \]
+\[ YZ \cdot \pdv[2]{X}{x} + XZ \cdot \pdv[2]{Y}{y} + XY \cdot \pdv[2]{Z}{z} + k^2 XYZ = 0 \quad \bigg| \cdot \frac{1}{XYZ} \]
+\[ \underbrace{\frac{X''_{xx}}{X}}_{\substack{||| \\ -k_x^2}} + \underbrace{\frac{Y''_{yy}}{Y}}_{\substack{||| \\ -k_y^2}} + \underbrace{\frac{Z''_{zz}}{Z}}_{\substack{||| \\ -k_z^2}} + k^2 = 0 \]
+Отсюда $k^2 = k_x^2 + k_y^2 + k_z^2$, волновой вектор $\vec{k} = \mqty(k_x \\ k_y \\ k_z)$.
+
+Система уравнений:
+\begin{equation}
+	\begin{cases}
+		\frac{X''}{X} = -k_x^2 \\
+		\frac{Y''}{Y} = -k_y^2 \\
+		\frac{Z''}{Z} = -k_z^2
+	\end{cases}
+	\implies
+	\begin{cases}
+		X'' + k_x^2 X = 0 \\
+		Y'' + k_y^2 Y = 0 \\
+		Z'' + k_z^2 Z = 0
+	\end{cases}
+	\implies
+	\begin{cases}
+		X = C_1 \cdot \exp(-i k_x x) \\
+		Y = C_2 \cdot \exp(-i k_y y) \\
+		Z = C_3 \cdot \exp(-i k_z z)
+	\end{cases}
+\end{equation}
+
+Пространственная часть поля:
+\[ \vec{E}(\vec{r}) = XYZ = \vec{A} \cdot \exp(-i k_x x) \cdot \exp(-i k_y y) \cdot \exp(-i k_z z) = \vec{A} \cdot \exp(-i (k_x x + k_y y + k_z z)) = \vec{A} \cdot \exp(-i (\vec{k}, \vec{r})) \]
+
+Полное поле:
+\begin{align*}
+	\vec{E}(\vec{r}, t) &= \Re \vec{E}_0 \cdot \exp(i(\omega t - \vec{k} \cdot \vec{r} + \varphi_0)) = \Re \underbrace{\vec{E}_0 \cdot \exp(i \varphi_0)}_{\vec{E}_0'} \exp(i(\omega t - \vec{k} \cdot \vec{r})) = \\
+	&= \Re E_0 \exp(i(\omega t - \vec{k}\vec{r})) = E_0 \cos(\omega t - \vec{k} \vec{r} + \varphi_0)
+\end{align*}
