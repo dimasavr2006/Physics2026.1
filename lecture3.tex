@@ -1,0 +1,626 @@
+\section*{Плоские монохроматические волны}
+
+12.02.
+\begin{itemize}
+	\item $\Delta E - \frac{1}{v^2} \cdot \pdv[2]{E}{t} = 0$ 
+	
+	решение в общем виде: $E = E\qty(t - \frac{z}{v})$ \quad * \textit{в жизни такое редко будет}
+	
+	$\begin{cases}
+		\vec{E}(\vec{r}, t) = \vec{E}(\vec{r}) \cdot \exp(i\omega t) \quad \omega = \frac{2\pi}{T} \\
+		(\Delta + k^2)\vec{E}(\vec{r}) = 0 \quad \text{ур-ние Гельмгольца}
+	\end{cases}$
+	
+	решение вида $\vec{E}(\vec{r}, t) = \vec{e}_p E_0 \cos(\omega t - \vec{k}\vec{r} + \varphi_0)$
+	
+	в комплексной форме: $\widetilde{E}(\vec{r}, t) = \underbrace{E_0 \cdot \exp(i\varphi_0)}_{\widetilde{E}_0} \cdot \exp(i(\omega t - \vec{k}\vec{r}))$
+	
+	\begin{equation*}
+		\vec{E}(\vec{r}, t) = \Re \widetilde{E}(\vec{r}, t)
+	\end{equation*}
+	
+	\item \textbf{Параметры плоской монохроматической волны:}
+	\begin{itemize}
+		\item $\vec{e}_p$ --- вектор поляризации
+		\item $\widetilde{E}_0 = E_0 \exp(i\varphi_0)$ --- комплексная амплитуда
+		
+		$\hookrightarrow$ вещественная амплитуда
+		\item $\varphi(\vec{r}, t) = \omega t - \vec{k}\vec{r} + \varphi_0$ --- фаза
+		\item $\varphi(t=0, \vec{r}=0) = \varphi_0$
+	\end{itemize}
+	
+	\item \textbf{Почему плоская?} 
+	$\vec{k} = \begin{pmatrix} k_x \\ k_y \\ k_z \end{pmatrix} \quad \vec{r} = \begin{pmatrix} x \\ y \\ z \end{pmatrix}$
+	
+	$\omega t - (k_x x + k_y y + k_z z) + \varphi_0 = \text{const}$
+	
+	$t = t_0$:
+	
+	$k_x x + k_y y + k_z z + C = \text{const}$ --- ур-ние плоскости, $\vec{k}$ --- нормаль к этой плоскости
+	
+	$\omega t - \vec{k}\vec{r} = \text{const} \quad \Big| \dv{}{t} \to \omega - k \dv{r_k}{t} = 0$
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% Wavefronts
+			\begin{scope}[shift={(0,0)}]
+				\foreach \i in {0, 0.5, 1} {
+					\draw[thick, fill=white] (\i, \i*0.3) -- ++(0, 2) -- ++(1.5, 0) -- ++(0, -2) -- cycle;
+				}
+				\draw[->, thick, -Stealth] (0.7, 1) -- (2.5, 1.8) node[right] {$\vec{k}$};
+				\node at (1.5, -0.5) {волновой фронт};
+			\end{scope}
+			
+			% Vectors
+			\begin{scope}[shift={(4, 0.5)}]
+				\draw[->, thick, -Stealth] (0, 0) node[below] {$O$} -- (2.5, 1) node[right] {$\vec{r}$};
+				\draw[->, thick, -Stealth] (0, 0) -- (2.5, 0) node[below] {$\vec{k}$};
+				\draw[dashed] (-0.5, 0) -- (4, 0);
+				\draw[->, thick, -Stealth] (0, 0) -- (2.5, 0) node[pos=0.8, below] {$r_k$};
+				\draw[dashed] (2.5, 1) -- (2.5, 0);
+				\draw (2.3, 0) -- (2.3, 0.2) -- (2.5, 0.2);
+				
+				\draw[->, thick, -Stealth] (-1, 0.5) -- (-0.2, 0.8) node[above right] {$\vec{v}$};
+			\end{scope}
+			
+			% Sine wave
+			\begin{scope}[shift={(9, 0)}]
+				\draw[->, thick, -Stealth] (0, 0.5) -- (4.5, 0.5) node[right] {$r$};
+				\draw[->, thick, -Stealth] (0, -1) -- (0, 2) node[left] {$E$};
+				\draw[thick, blue] plot[domain=0:4, samples=100] (\x, {0.5 - 1.2*sin(\x * 150)});
+				\draw[<->, >=Stealth] (0.6, 1.8) -- (3.0, 1.8) node[midway, above] {$\lambda$};
+			\end{scope}
+		\end{tikzpicture}
+	\end{figure}
+	
+	$v_{\text{ф}} = \dv{r_k}{t}$ --- фазовая скорость.
+	
+	\begin{nb}
+		$v_{\text{ф}} = \dv{r_k}{t} = \frac{\omega}{k}$ --- дисперсионное соотношение
+	\end{nb}
+	
+	$v_{\text{ф}} = \frac{c}{\sqrt{\varepsilon \mu}}$ --- в среде
+	
+	$v_{\text{ф}} = c$ --- в вакууме
+	
+	$v_{\text{ф}} = \frac{c}{n}$, $\mu = 1$, $n = \sqrt{\varepsilon}$ ($n$ --- показатель преломления)
+	
+	\begin{nb}
+		в системе СИ: $c = \frac{1}{\sqrt{\varepsilon_0 \mu_0}}$
+	\end{nb}
+	
+	$v_{\text{ф}} = \frac{1}{\sqrt{\varepsilon_0 \varepsilon \mu_0 \mu}}$
+	
+	\item \textbf{Системы ур-ний Максвелла для плоской монохроматической волны:}
+	
+	$\rho = 0, \quad \vec{j} = 0 \quad\quad * (\nabla, \vec{E}) = 0, \quad \nabla = \pdv{x}\vec{e}_x + \pdv{y}\vec{e}_y + \pdv{z}\vec{e}_z$
+	
+	$\begin{cases}
+		\div{\vec{D}} = 0 \quad (\div{\vec{E}} = 0 \text{, т.к. } \vec{D} = \varepsilon\varepsilon_0\vec{E}) \\
+		\div{\vec{B}} = 0 \quad\quad\quad\quad\quad\quad\quad\quad\quad \vec{B} = \mu\mu_0\vec{H} \\
+		\rot{\vec{E}} = - \pdv{\vec{B}}{t} \\
+		\rot{\vec{H}} = \pdv{\vec{D}}{t}
+	\end{cases}$
+	
+\end{itemize}
+
+\newpage
+
+\begin{equation*}
+	\begin{aligned}
+		& \vec{E} = \vec{E}_0 \exp(i(\omega t - \vec{k}\vec{r})) \quad\quad \vec{B} = \vec{B}_0 \exp(i(\omega t - \vec{k}\vec{r})) \\
+		& \pdv{\vec{E}}{t} = i\omega \underbrace{\vec{E}_0 \exp(i(\omega t - \vec{k}\vec{r}))}_{\vec{E}} = i\omega\vec{E} \\
+		& \pdv{\vec{E}}{x} = -i k_x \cdot \vec{E} \quad\quad \vec{k}\vec{r} = x k_x + y k_y + z k_z \\
+		& \text{тогда, } (\nabla, \vec{E}) = \pdv{E_x}{x} + \pdv{E_y}{y} + \pdv{E_z}{z} = -i k_x E_x - i k_y E_y - i k_z E_z = -i(\vec{k}, \vec{E}) = 0 \implies (\vec{k}, \vec{E}) = 0 \implies \vec{k} \perp \vec{E} \\
+		& \text{аналогично } (\vec{k}, \vec{B}) = 0 \implies \vec{k} \perp \vec{B}
+	\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+	\rot{\vec{E}} = \begin{vmatrix} 
+		\vec{e}_x & \vec{e}_y & \vec{e}_z \\ 
+		\pdv{x} & \pdv{y} & \pdv{z} \\ 
+		E_x & E_y & E_z 
+	\end{vmatrix} =
+	\begin{vmatrix} 
+		\vec{e}_x & \vec{e}_y & \vec{e}_z \\ 
+		-ik_x & -ik_y & -ik_z \\ 
+		E_x & E_y & E_z 
+	\end{vmatrix} = -i
+	\begin{vmatrix} 
+		\vec{e}_x & \vec{e}_y & \vec{e}_z \\ 
+		k_x & k_y & k_z \\ 
+		E_x & E_y & E_z 
+	\end{vmatrix} = -i [\vec{k}, \vec{E}]
+\end{equation*}
+$\hookrightarrow \text{аналогично } -i[\vec{k}, \vec{H}] = -i\omega\vec{D}$
+
+\begin{equation*}
+	\begin{aligned}
+		\text{тогда: } -i [\vec{k}, \vec{E}] &= -i\omega\vec{B} \quad | : (-i) \quad\quad\quad\quad\quad\quad && \mu\mu_0[\vec{k}, \vec{H}] = -\omega\varepsilon\varepsilon_0\vec{E} \\
+		[\vec{k}, \vec{E}] &= \omega\vec{B} && [\vec{k}, \vec{B}] = - \frac{\varepsilon\varepsilon_0}{\mu\mu_0} \omega\vec{E}
+	\end{aligned}
+\end{equation*}
+
+что мы имеем уже? 
+$\begin{cases}
+	(\vec{k}, \vec{E}) = 0 \\
+	(\vec{k}, \vec{B}) = 0 \\
+	[\vec{k}, \vec{E}] = \omega\vec{B} \\
+	[\vec{k}, \vec{B}] = - \frac{\varepsilon_0\varepsilon}{\mu_0\mu} \omega\vec{E}
+\end{cases}$ $\longleftarrow$ ур-ния Максвелла для плоской монохроматической волны (ПМВ)
+
+\begin{equation*}
+	\begin{aligned}
+		& (\vec{k}, \vec{E}) = 0 \implies \vec{k} \perp \vec{E} \\
+		& (\vec{k}, \vec{B}) = 0 \implies \vec{k} \perp \vec{B}
+	\end{aligned} \Bigg\} \implies \vec{k} \perp \vec{E} \perp \vec{B} \quad\quad 
+	\begin{aligned}
+		& [\vec{k}, \vec{E}] = \omega\vec{B} \implies (\vec{k}, \vec{E}, \vec{B}) \\
+		& [\vec{k}, \vec{B}] = \varepsilon_0\varepsilon\mu_0\mu\omega\vec{E} = - \frac{\omega}{v^2}\vec{E}
+	\end{aligned}
+\end{equation*}
+
+\begin{nb}
+	\textbf{Свойства ПМВ:}
+	\begin{enumerate}
+		\item плоская монохром. волна -- \textcolor{red}{поперечная} \quad\quad $H = \sqrt{\frac{\varepsilon\varepsilon_0}{\mu\mu_0}} E$
+		\item $\vec{k}, \vec{E}, \vec{B}$ -- \textcolor{red}{правая} тройка векторов
+	\end{enumerate}
+\end{nb}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		% 3D axes
+		\draw[->, thick, -Stealth] (0,0) -- (-2.5, -2.5) node[below left] {$x$};
+		\draw[->, thick, -Stealth] (0,0) -- (4, 0) node[right] {$y$};
+		\draw[->, thick, -Stealth] (0,0) -- (0, 3) node[above] {$z$};
+		
+		% Wave propagation along x (diagonal)
+		\draw[->, thick, blue, -Stealth] (0,0) -- (-1.5, -1.5) node[above left, black] {$\vec{k}$};
+		
+		% E wave (in xz plane)
+		\draw[thick, blue] plot[domain=0:2.5, samples=100] ({-\x}, {-\x + 1.5*sin(\x * 150)});
+		\foreach \x in {0.2, 0.4, ..., 2.4} {
+			\draw[->, blue, -Stealth] ({-\x}, {-\x}) -- ({-\x}, {-\x + 1.5*sin(\x * 150)});
+		}
+		
+		% B wave (in xy plane)
+		\draw[thick, brown] plot[domain=0:2.5, samples=100] ({-\x + 1.5*sin(\x * 150)}, {-\x});
+		\foreach \x in {0.2, 0.4, ..., 2.4} {
+			\draw[->, brown, -Stealth] ({-\x}, {-\x}) -- ({-\x + 1.5*sin(\x * 150)}, {-\x});
+		}
+		
+		\node[above] at (0, 1.5) {$\vec{E}$};
+		\node[right] at (1.5, -0.5) {$\vec{B}$};
+		
+		% Inset box
+		\begin{scope}[shift={(3, 1.5)}]
+			\draw (0,0) rectangle (2, 2);
+			\draw[->, thick, -Stealth] (0.5, 0.5) -- (0.5, 1.5) node[above] {$\vec{E}$};
+			\draw[->, thick, -Stealth] (0.5, 0.5) -- (1.5, 0.5) node[right] {$\vec{B}$};
+			\filldraw[fill=white] (0.5, 0.5) circle (0.15);
+			\draw (0.35, 0.35) -- (0.65, 0.65);
+			\draw (0.35, 0.65) -- (0.65, 0.35);
+			\node[right] at (0.7, 0.7) {$\vec{v}_{\text{ф}}$};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+\begin{equation*}
+	k = \frac{\omega}{v} \quad\quad kB = - \frac{\omega}{v^2} E \implies \frac{\omega}{\cancel{v}} B = - \frac{\omega}{v^{\cancel{2}}} E \implies \qty(\text{минус убираем, т.к. по модулю берем}) \implies E = v_{\text{ф}} B
+\end{equation*}
+\textbf{в вакууме: $E = cB$}
+
+\begin{nb}
+	\textbf{Интенсивность плоской монохроматической волны:}
+\end{nb}
+$I = \langle |\vec{S}| \rangle_T = \frac{1}{T} \int\limits_0^{t+T} S(t) \dd t$, где $\vec{S} = [\vec{E}, \vec{H}]$
+
+Пусть $\vec{k} = \begin{pmatrix} k \\ 0 \\ 0 \end{pmatrix} = k \vec{e}_x$, $\vec{E} = \begin{pmatrix} 0 \\ E(t) \\ 0 \end{pmatrix} = E(t) \vec{e}_y$, $\vec{H} = \begin{pmatrix} 0 \\ 0 \\ H(t) \end{pmatrix} = H(t) \vec{e}_z$
+
+\begin{equation*}
+	\vec{S} = \begin{vmatrix} 
+		\vec{e}_x & \vec{e}_y & \vec{e}_z \\ 
+		0 & 0 & E(t) \\ 
+		H(t) & 0 & 0 
+	\end{vmatrix} \text{ --- ошибка, должно быть } 
+	= \begin{vmatrix} 
+		\vec{e}_x & \vec{e}_y & \vec{e}_z \\ 
+		0 & E(t) & 0 \\ 
+		0 & 0 & H(t) 
+	\end{vmatrix}
+	= \vec{e}_x \begin{vmatrix} 
+		E(t) & 0 \\ 
+		0 & H(t) 
+	\end{vmatrix} = E(t)H(t)\vec{e}_x \implies \vec{S} \upuparrows \vec{k}
+\end{equation*}
+$\hookrightarrow$ энергия переносится вдоль волнового вектора
+
+$|\vec{S}| = E_0 \cos(\omega t - \vec{k}\vec{r}) \cdot \qty( \sqrt{\frac{\varepsilon\varepsilon_0}{\mu\mu_0}} E_0 \cos(\omega t - \vec{k}\vec{r}) ) = \sqrt{\frac{\varepsilon\varepsilon_0}{\mu\mu_0}} E_0^2 \cos^2(\omega t - \vec{k}\vec{r})$
+
+\newpage
+
+\begin{equation*}
+	\langle |\vec{S}| \rangle_T = \sqrt{\frac{\varepsilon\varepsilon_0}{\mu\mu_0}} E_0^2 \underbrace{\langle \cos^2(\omega t - \vec{k}\vec{r}) \rangle_T}_{\frac{1}{2}}
+\end{equation*}
+
+Тогда, \colorbox{green!20}{$I = \sqrt{\frac{\varepsilon\varepsilon_0}{\mu\mu_0}} \frac{E_0^2}{2}$}
+
+\subsection*{Стоячие волны. Открытые резонаторы}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		% First drawing
+		\begin{scope}[shift={(0,0)}]
+			\draw[->, thick, -Stealth] (-2, 0) -- (4, 0) node[right] {$z$};
+			\draw[thick, pattern=north east lines] (0, -2) rectangle (0.3, 2);
+			\draw[thick] (0.3, -2) -- (0.3, 2);
+			
+			\draw[->, thick, -Stealth] (-1.5, 1.5) -- (-0.5, 1.5) node[midway, above] {$\vec{k}_{\text{падающ.}}$};
+			\draw[->, thick, -Stealth] (-0.5, 0.5) -- (-1.5, 0.5) node[midway, below] {$\vec{k}_{\text{отраж.}}$};
+			
+			\draw[thick, blue] plot[domain=-2:0, samples=100] (\x, {1.5*sin(\x*180)});
+			\draw[thick, blue] plot[domain=0.3:3, samples=100] (\x, {1.5*sin((\x-0.3)*180)});
+			
+			\draw[->, thick, -Stealth] (1.5, 0) -- (1.5, 1.5) node[right] {$\vec{E}_0$};
+			
+			\draw[->] (1.5, 2.5) .. controls (0.5, 2.5) and (0.5, 1) .. (0.15, 0.5);
+			\node[right] at (1.5, 2.5) {\small идеальное зеркало (проводник) -- слой металла на стекле,};
+			\node[right] at (2.5, 2.1) {\small т.е. проводник (в металле свободные $\overline{e}$)};
+		\end{scope}
+		
+		% Second drawing
+		\begin{scope}[shift={(8,0)}]
+			\draw[->, thick, -Stealth] (-2, 0) -- (2, 0) node[right] {};
+			\draw[thick] (0, -1.5) -- (0, 1.5);
+			
+			\node[above] at (-1, 0.5) {$E(z<0, t)-?$};
+			
+			\draw[->, thick, -Stealth] (-0.5, 0.8) -- (0, 0.8) node[left, xshift=-0.5cm] {$\vec{E}_0$};
+			\node at (0.2, 0.8) {$+$};
+			\node at (0.2, 0) {$+$};
+			\node at (0.2, -0.8) {$+$};
+			
+			\draw[<-, thick, -Stealth] (-0.5, -0.5) -- (0, -0.5) node[left, xshift=-0.5cm] {$\vec{E}' \equiv \vec{E}_0$};
+			
+			\node[below] at (0, -1.5) {проводник};
+			
+			\node[right, align=left] at (1, 1) {поле попа-\\дает в металл\\$\downarrow$\\$\overline{e}$ колеблются с\\частотой как $\vec{E}$\\$\downarrow$\\обр. волна};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+$\vec{E}_{\text{гасящ.}}(z < 0, t) = -\vec{e}_x E_0 \exp(i(\omega t + kz)) \quad\quad\quad \vec{E}_{\text{падающ.}} = \vec{e}_x E_0 \exp(i(\omega t - kz)) \quad \vec{k} \updownarrow \vec{O}_z$
+
+$\vec{E}_z(z < 0, t) = \vec{E}_{\text{пад}} + \vec{E}_{\text{гас}} = 0$
+
+$\vec{E}(z > 0, t) = \vec{E}_{\text{пад}} + \vec{E}_{\text{отр}}$
+
+$\vec{E}_{\text{отр.}} = -E_0 \vec{e}_x \exp(i(\omega t + kz))$
+
+$\vec{E}(z > 0, t) = \vec{e}_x E_0 \exp(i(\omega t - kz)) - \vec{e}_x E_0 \exp(i(\omega t + kz)) = \vec{e}_x E_0 \cdot \exp(i\omega t) \cdot \underbrace{\qty(e^{-ikz} - e^{ikz})}_{-2i \sin kz} = -2i\vec{e}_x E_0 e^{i\omega t} \sin kz$
+
+$\vec{E}(z > 0, t) = \Re \widetilde{\vec{E}} = \Re ( -2 E_0 \vec{e}_x \sin kz \cdot i (\cos \omega t + i \sin \omega t) ) = 2 E_0 \vec{e}_x \sin \omega t \sin kz$
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\draw[->, thick, -Stealth] (0, 0) -- (7, 0) node[right] {$z$};
+		\draw[->, thick, -Stealth] (0, -2) -- (0, 2) node[above] {$x$};
+		
+		\node[above right, text=red] at (3.5, 1.5) {получаем семейство кривых};
+		\node[above right, text=red] at (4, 1.1) {(разные моменты времени)};
+		\node[right, text=red] at (4, 0.7) {$\hookrightarrow$ не бегущая волна};
+		
+		\draw[thick, black] plot[domain=0:6, samples=100] (\x, {1.8*sin(\x*180/2)});
+		\draw[thick, blue] plot[domain=0:6, samples=100] (\x, {-1.8*sin(\x*180/2)});
+		\draw[thick, gray] plot[domain=0:6, samples=100] (\x, {1.0*sin(\x*180/2)});
+		\draw[thick, dashed, orange] plot[domain=0:6, samples=100] (\x, {0.4*sin(\x*180/2)});
+		
+		\filldraw[orange] (0,0) circle (2pt) node[below left, black] {$0$};
+		\filldraw[orange] (2,0) circle (2pt) node[below left, black] {$\frac{\lambda}{2}$};
+		\filldraw[orange] (4,0) circle (2pt) node[below left, black] {$\lambda$};
+		\filldraw[orange] (6,0) circle (2pt) node[below left, black] {$\frac{3\lambda}{2}$};
+	\end{tikzpicture}
+\end{figure}
+
+$k z_m = \pi m \implies z_m = \frac{\pi m}{k} = \frac{\pi m}{\frac{2\pi}{\lambda}} = \frac{\lambda}{2} m$
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\draw[thick, pattern=north east lines] (0, -1.5) rectangle (0.3, 1.5);
+		\draw[thick, pattern=north west lines] (3.7, -1.5) rectangle (4.0, 1.5);
+		\draw[thick] (0.3, -1.5) -- (0.3, 1.5);
+		\draw[thick] (3.7, -1.5) -- (3.7, 1.5);
+		
+		\draw[<->, >=Stealth] (0.3, 1.8) -- (3.7, 1.8) node[midway, above] {$L$};
+		
+		\draw[thick, blue] plot[domain=0.3:3.7, samples=100] (\x, {1*sin((\x-0.3)*180/1.133)});
+		\draw[thick, blue] plot[domain=0.3:3.7, samples=100] (\x, {-1*sin((\x-0.3)*180/1.133)});
+		
+		\draw[->] (0.8, -2) node[below] {пучность} -- (0.8, -1.1);
+		
+		\node[right] at (4.5, 1) {такая система зеркал};
+		\node[right] at (4.5, 0.5) {называется \underline{открытый резонатор}};
+		\node[right] at (4.5, -0.5) {к примеру, микроволновка -- закрытый резонатор};
+	\end{tikzpicture}
+\end{figure}
+
+$L = \frac{\lambda}{2} m = \frac{2\pi}{2k} m = m \frac{\pi v}{\omega} \implies \colorbox{green!20}{$\omega_m = \frac{\pi v}{L} m$}$
+
+\begin{itemize}
+	\item Источник для плоской монохроматической волны --- бесконечная плоскость (в реальной жизни такого нет).
+\end{itemize}
+
+\newpage
+
+\section*{Сферические волны}
+
+\begin{itemize}
+	\item \textbf{Сферические координаты:}
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\draw[->, thick, -Stealth] (0,0) -- (-2, -2) node[below left] {$x$};
+		\draw[->, thick, -Stealth] (0,0) -- (3, 0) node[right] {$y$};
+		\draw[->, thick, -Stealth] (0,0) -- (0, 3) node[above] {$z$};
+		
+		\draw[->, thick, -Stealth] (0,0) -- (2, 2) node[right] {$r$};
+		\draw[dashed] (2,2) -- (2,0) -- (0,0);
+		\draw[dashed] (2,0) -- (-1.5, -1.5);
+		
+		\draw (0, 1) arc (90:45:1) node[midway, above right] {$\theta$};
+		\draw (-0.5, -0.5) arc (225:360:0.7) node[midway, below] {$\varphi$};
+	\end{tikzpicture}
+	\quad
+	$\begin{cases}
+		x = r \sin\theta \cos\varphi \\
+		y = r \sin\theta \sin\varphi \\
+		z = r \cos\theta
+	\end{cases} \quad r = \sqrt{x^2 + y^2 + z^2}$
+\end{figure}
+
+\begin{equation*}
+	\begin{cases}
+		\vec{E}(\vec{r}, t) = E(\vec{r}) \cdot \exp(i\omega t) \\
+		(\Delta + k^2) E(\vec{r}) = 0 \quad \text{ось } y \\
+		E(\vec{r}) = E(|\vec{r}|) Y(\theta, \varphi)
+	\end{cases}
+	\quad
+	\Delta = \frac{1}{r^2} \cdot \pdv{r} \qty(r^2 \pdv{r}) + \frac{1}{r^2 \sin\theta} \cdot \pdv{\theta} \qty(\sin\theta \pdv{\theta}) + \frac{1}{r^2 \sin^2\theta} \cdot \pdv[2]{}{\varphi}
+\end{equation*}
+
+сферически симметричный: $Y(\theta, \varphi) = 1, \quad \pdv{}{\theta} = 0, \quad \pdv{}{\varphi} = 0$
+
+\begin{itemize}
+	\item \colorbox{orange!30}{\textbf{ур-ние Гельмгольца:}} $\frac{1}{r^2} \cdot \pdv{r}\qty(r^2 \cdot \pdv{E(r)}{r}) + k^2 E(r) = 0$ на больших расстояниях сферическая волна $\sim$ плоская
+\end{itemize}
+
+I решение: $E = \frac{A}{r}$
+
+подставим это: 
+\begin{equation*}
+	\begin{aligned}
+		& \frac{1}{r^2} \cdot \pdv{r} \qty(r^2 \cdot \pdv{r}\qty(\frac{A}{r})) + k^2 \cdot \frac{A}{r} = 0 \\
+		& \frac{1}{r^2} \cdot \pdv{r} \qty(r \pdv{A}{r} - A) + k^2 \cdot \frac{A}{r} = 0 \\
+		& \frac{1}{r^2} \cdot \qty(\cancel{\pdv{A}{r}} + r \pdv[2]{A}{r} - \cancel{\pdv{A}{r}}) + k^2 \cdot \frac{A}{r} = 0 \\
+		& \frac{1}{r} \cdot \pdv[2]{A}{r} + k^2 \cdot \frac{A}{r} = 0 \\
+		& \pdv[2]{A}{r} + k^2 A = 0
+	\end{aligned}
+\end{equation*}
+
+\colorbox{orange!30}{$A(r) = C \cdot \exp(\pm ikr)$} 
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+	\draw[->, -Stealth] (0, 0.2) -- (0.5, 0.5) node[right] {$+$ --- волна к источнику};
+	\draw[->, -Stealth] (0, -0.2) -- (0.5, -0.5) node[right] {$-$ --- волна от источника};
+\end{tikzpicture}
+
+\begin{itemize}
+	\item $\vec{E}(|\vec{r}|, t) = \frac{\widetilde{E}_0}{r} \cdot \exp(i(\omega t \pm kr))$
+	
+	$\vec{E}(|\vec{r}|, t) = \frac{E_0}{r} \cos(\omega t \pm kr)$
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		% Sphere
+		\begin{scope}[shift={(0,0)}]
+			\draw[->, -Stealth] (0,0) -- (-2, -2) node[below left] {$x$};
+			\draw[->, -Stealth] (0,0) -- (3, 0) node[right] {$y$};
+			\draw[->, -Stealth] (0,0) -- (0, 3) node[above] {$z$};
+			
+			\draw[thick, blue] (0,0) circle (1.5);
+			\draw[thick, dashed, blue] (-1.5, 0) arc (180:0:1.5 and 0.5);
+			\draw[thick, blue] (1.5, 0) arc (0:-180:1.5 and 0.5);
+			
+			\draw[->, thick, red, -Stealth] (0,0) -- (1.5, 1.5) node[above right] {$\vec{k}$};
+			\draw[->, thick, red, -Stealth] (0.8, 0.8) -- (2.0, 0.5) node[right] {$\vec{E}$};
+			\draw[->, thick, red, -Stealth] (0.8, 0.8) -- (0.5, -0.5) node[below] {$\vec{B}$};
+		\end{scope}
+		
+		% Waves
+		\begin{scope}[shift={(6, 0.5)}]
+			\foreach \r in {0.4, 0.8, 1.2, 1.6} {
+				\draw[thick] (0,0) circle (\r);
+			}
+			\draw[->, -Stealth] (0,0) -- (1.5, 2) node[above] {$k$};
+			\draw[->, -Stealth] (0,0) -- (2.2, 0.8) node[right] {$k$};
+			\draw[->, -Stealth] (0,0) -- (2.2, -0.5) node[right] {$k$};
+			\draw[->, -Stealth] (0,0) -- (1.2, -1.8) node[below] {$k \quad \varphi = \text{const}$};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+\begin{itemize}
+	\item для плоской волны: $I \sim E_0^2$
+	\item для сферической: $I \sim \frac{E_0^2}{r^2}$
+\end{itemize}
+
+\newpage
+
+\section*{Геометрическая оптика. Распространение света в неоднородной прозрачной среде. Уравнение Эйконала. Световые лучи}
+
+\begin{itemize}
+	\item свет $\sim 10^{-7} (\lambda)$
+	
+	$D \gg \lambda, \quad \lambda \to 0 \implies$ волны рассматриваем как лучи
+	
+	\item Рассмотрим свет, распространяющийся в среде, где показатель преломления неоднородный $n(r)$.
+	
+	$\vec{E}(\vec{r}, t) = E_0 \cdot \exp(i(\vec{k}\vec{r} - \omega t))$
+	
+	$k = \frac{\omega}{v} \vec{e}_s, \quad \vec{e}_s$ --- лучевой орт, $v = \frac{c}{n} \implies \vec{k} = \underbrace{\frac{\omega}{c}}_{k_0 \text{ -- волновой вектор в вакууме}} n \vec{e}_s \implies \vec{E}(\vec{r}, t) = E_0 \cdot \exp(i(k_0 n(r) \vec{e}_s \vec{r} - \omega t))$
+	
+	$\vec{E}(\vec{r}, t) = \vec{E}(\vec{r}) \cdot \exp(-i\omega t)$
+	
+	$\vec{E}(\vec{r}) = a(\vec{r}) \cdot \exp(ik_0 R(\vec{r})) \longleftarrow$ медленно меняющаяся функция
+	
+	$R(\vec{r}) = n(r) \cdot \vec{r} \cdot \vec{e}_s \longleftarrow$
+	
+	\item Подставим в ур-ние Гельмгольца: $(\Delta + k^2)\vec{E}(\vec{r}) = 0$
+	
+	$(\Delta + k^2) a(\vec{r}) \cdot \exp(ik_0 R(\vec{r})) = 0$
+	
+	$\vec{\nabla} \cdot [a(\vec{r}) \cdot \exp(ik_0 R(\vec{r}))] = (\vec{\nabla}, a) \cdot \exp(ik_0 R) + ik_0 a \vec{\nabla} R \exp(ik_0 R)$
+	
+	$\downarrow$
+	\begin{equation*}
+		\begin{aligned}
+			\Delta = \vec{\nabla}^2 &= (\vec{\nabla}^2 a) \cdot \exp(ik_0 R) + i k_0 (\vec{\nabla} a, \vec{\nabla} R) \cdot \exp(ik_0 R) + i k_0 (\vec{\nabla}^2 R) a \exp(i k_0 R) \\
+			&\quad + i k_0 (\vec{\nabla} a, \vec{\nabla} R) \cdot \exp(i k_0 R) - k_0^2 a (\vec{\nabla} R)^2 \cdot \exp(ik_0 R) \equiv \\
+			&\equiv (\vec{\nabla}^2 a) \exp(ik_0 R) + 2 i k_0 (\vec{\nabla} a, \vec{\nabla} R) \cdot \exp(ik_0 R) \\
+			&\quad + i k_0 (\vec{\nabla}^2 R) a \cdot \exp(ik_0 R) - k_0^2 a (\vec{\nabla} R)^2 \exp(ik_0 R)
+		\end{aligned}
+	\end{equation*}
+	
+	$\implies$ упрощаем $(\vec{\nabla}^2 a) \to 0$
+	
+	$2 i k_0 (\vec{\nabla} a, \vec{\nabla} R) \cdot \exp(ik_0 R) + i k_0 (\vec{\nabla}^2 R) \cdot a \cdot \exp(ik_0 R) - k_0^2 a (\vec{\nabla} R)^2 \cdot \exp(ik_0 R)$
+	
+	$\Downarrow$
+	
+	$2 i k_0 (\vec{\nabla} a, \vec{\nabla} R) + i k_0 a (\vec{\nabla}^2 R) - k_0^2 a (\vec{\nabla} R)^2 + k_0^2 n^2 a = 0$
+	
+	$\begin{cases}
+		-k_0^2 a (\vec{\nabla} R)^2 + k_0^2 n^2 a = 0 \quad\quad\quad\quad\quad\quad + k_0^2 n^2 a = 0 \\
+		2 k_0 (\vec{\nabla} a, \vec{\nabla} R) + k_0 a (\vec{\nabla}^2 R) = 0
+	\end{cases}$
+	
+	$\begin{cases}
+		(\vec{\nabla} R)^2 = n^2 \quad \text{\color{red} уравнение эйконала} \\
+		2(\vec{\nabla} a, \vec{\nabla} R) + a \Delta R = 0
+	\end{cases}$
+	
+\end{itemize}
+
+\begin{nb}
+	\textbf{Уравнение эйконала:} $\quad \qty(\pdv{R}{x})^2 + \qty(\pdv{R}{y})^2 + \qty(\pdv{R}{z})^2 = n^2(x, y, z)$
+\end{nb}
+
+$\longleftarrow$ описывает, как меняется волновой фронт: как в пр-ве движется фаза (поверхность постоянн. фазы); $\vec{e}_s$ --- \underline{нормаль} к этой поверхности
+$\vec{\nabla} R = n(r)\vec{e}_s$
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		% Curves
+		\draw[thick] (0,-1.5) arc (190:170:8.5) node[below=2cm] {$R_1$};
+		\draw[thick] (1.5,-1.5) arc (190:170:8.5) node[below=2cm] {$R_2$};
+		\draw[thick] (3.0,-1.5) arc (190:170:8.5) node[below=2cm] {$R_3$};
+		
+		% Ray
+		\draw[thick, blue, -Stealth] (-1, 0) .. controls (1, 0.5) and (3, 0.2) .. (4.5, -0.5);
+		\node[right] at (4.5, -0.5) {$\vec{\nabla} R = n(r)\vec{e}_s$};
+		
+		% Vectors
+		\draw[->, thick, red, -Stealth] (1.3, 0.35) -- (2.2, 0.45) node[above] {$\vec{e}_s$};
+		
+		% Text
+		\node[left, align=left] at (-1.5, -0.5) {любая кривая в каждой \\ точке которой $\vec{e}_s$ \\ направлен по касательной, \\ явл-ся векторным полем \\ решения ур-ния эйконала};
+		
+		\draw[->] (2.0, 1.2) node[above] {касательная к лучу} -- (1.8, 0.5);
+	\end{tikzpicture}
+\end{figure}
+
+\begin{itemize}
+	\item \colorbox{cyan!20}{\textbf{Уравнение светового луча в неоднородной среде:}}
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\draw[->, thick, -Stealth] (0,0) -- (1.5, 1) node[midway, above left] {$dl$};
+		\draw[->, thick, -Stealth] (-1, -1) -- (0,0) node[midway, above left] {$\vec{r}$};
+		\draw[->, thick, -Stealth] (-1, -1) -- (1.5, 1) node[midway, below right] {$\vec{r} + d\vec{r}$};
+	\end{tikzpicture}
+\end{figure}
+
+из ур-ния эйконала: $n \vec{e}_s = \vec{\nabla} R, \quad n \dv{\vec{r}}{l} = \vec{\nabla} R \quad \Big| \dv{}{l}$
+
+$d\vec{r} = \vec{e}_s dl \implies \vec{e}_s = \dv{\vec{r}}{l}$
+
+$\dv{}{l} \qty(n \dv{\vec{r}}{l}) = \dv{\vec{\nabla} R}{l} = \vec{\nabla} \qty(\dv{R}{l}) = \vec{\nabla} n$
+
+$dR = n \vec{e}_s d\vec{r} = n \vec{e}_s \vec{e}_s dl = n dl$
+
+\begin{itemize}
+	\item \colorbox{yellow!30}{$\dv{}{l} \qty(n \dv{\vec{r}}{l}) = \vec{\nabla} n$} \quad уравнение светового луча
+	\item \colorbox{yellow!30}{$\dv{}{l} (n \vec{e}_s) = \vec{\nabla} n$}
+\end{itemize}
+
+\begin{equation*}
+	\begin{aligned}
+		& \dv{}{l} (n \vec{e}_s) = \vec{e}_s \dv{n}{l} + n \dv{\vec{e}_s}{l} = \vec{\nabla} n \\
+		& \dv{\vec{e}_s}{l} = \frac{1}{n} \vec{\nabla} n - \frac{1}{n} \dv{n}{l} \vec{e}_s \\
+		& d\vec{e}_s = \qty(\frac{1}{n} \vec{\nabla} n - \frac{1}{n} \dv{n}{l} \vec{e}_s) dl \text{ --- направление орта } \vec{e}_s
+	\end{aligned}
+\end{equation*}
+
+луч искривляется в сторону роста $n$, в сторону более плотной среды
+
+Если $n = \text{const}, \vec{\nabla} n = 0 \implies d\vec{e}_s = 0, \vec{e}_s = \text{const} \implies$ прямолинейное движение (\textcolor{red}{1 закон})
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		% Graph
+		\begin{scope}[shift={(0,0)}]
+			\draw[->, -Stealth] (0, -1.5) -- (0, 1.5) node[above] {$n$};
+			\draw[->, -Stealth] (-1.5, -0.5) -- (1.5, 1) node[above] {$x$};
+			\draw[thick, blue] (-1, 0.5) .. controls (0, -0.5) .. (1.5, -0.2);
+			\draw[->, thick, -Stealth] (-0.5, 0.1) -- (-0.5, 0.8) node[above right] {$\uparrow \vec{\nabla} n$};
+			\draw[dashed] (-0.5, 0.1) -- (0.5, 0.6);
+		\end{scope}
+		
+		% Earth and sun
+		\begin{scope}[shift={(5, 0)}]
+			\draw[thick, blue] (0,0) circle (1);
+			\node at (0,0) {земля};
+			\draw[dashed] (0,0) circle (1.3);
+			
+			\filldraw (0.9, 0.45) circle (1pt) node[above left, rotate=30] {человек};
+			\draw[thick, blue, -Stealth] (0.9, 0.45) .. controls (1.5, 0.2) and (1.8, -0.5) .. (2, -0.8);
+			\filldraw[orange] (2, -0.8) circle (3pt) node[below right, black, align=center] {солнце\\(реальное)};
+			
+			\draw[dashed] (0.9, 0.45) -- (2.5, 0.8);
+			\node[right, align=center] at (2.0, 1.0) {\small фантомное\\\small солнце,\\\small которое видит\\\small человек};
+			\draw (2.3, 0.75) circle (2pt);
+		\end{scope}
+		
+		% Vectors
+		\begin{scope}[shift={(12, 0)}]
+			\draw[->, thick, red, -Stealth] (0,0) -- (2, 0.5) node[right] {$\vec{e}_s$};
+			\draw[->, thick, red, -Stealth] (0,0) -- (1.5, -0.5);
+			\draw[->, thick, red, -Stealth] (1.5, -0.5) -- (2, 0.5) node[midway, right] {$d\vec{e}_s$};
+			\draw[->, thick, red, -Stealth] (0,0) -- (1, 1);
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}

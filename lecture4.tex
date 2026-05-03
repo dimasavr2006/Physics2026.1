@@ -1,0 +1,728 @@
+\section{Уравнение светового луча}
+
+Из уравнения эйконала:
+\begin{equation}
+	\dv{l} \qty( n \dv{\vb{r}}{l} ) = \vb{\nabla} n \quad \text{--- уравнение светового луча}
+\end{equation}
+
+Распишем левую часть, учитывая, что $\dv{\vb{r}}{l} = \vb{e}_s$:
+\begin{equation*}
+	\dv{l} (n \vb{e}_s) = \vb{\nabla} n
+\end{equation*}
+\begin{equation*}
+	\dv{l} (n \vb{e}_s) = \vb{e}_s \dv{n}{l} + n \dv{\vb{e}_s}{l} = \vb{\nabla} n
+\end{equation*}
+\begin{equation*}
+	\dv{\vb{e}_s}{l} = \frac{1}{n} \vb{\nabla} n - \frac{1}{n} \dv{n}{l} \vb{e}_s
+\end{equation*}
+\begin{equation*}
+	d\vb{e}_s = \qty( \frac{1}{n} \vb{\nabla} n - \frac{1}{n} \dv{n}{l} \vb{e}_s ) dl \quad \text{--- направление орта } \vb{e}_s
+\end{equation*}
+
+Луч искривляется в сторону роста $n$, в сторону более плотной среды. 
+Если $n = \text{const}$, то $\vb{\nabla}n = 0 \implies d\vb{e}_s = 0$, $\vb{e}_s = \text{const} \implies$ \textbf{прямолинейное движение (1 закон)}.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=0.8]
+		% График градиента
+		\draw[->] (0,-1) -- (0,2) node[left] {$\vb{\nabla}n$};
+		\draw[->] (-1,0) -- (3,0) node[right] {$x$};
+		\draw[blue, thick] (-0.5,0.5) to[out=-45,in=180] (1,-0.2) to[out=0,in=225] (2.5,0.8);
+		\draw[->, red, thick] (-0.5,0.5) -- (-0.5, 1.2);
+		
+		% Земля и мираж
+		\begin{scope}[shift={(6,0)}]
+			\draw[thick, blue] (0,0) circle (1.5);
+			\node at (0,0) {земля};
+			\filldraw[black] (0,1.5) circle (0.05);
+			\node[above left] at (0,1.5) {человек};
+			\filldraw[orange] (2.5,-0.5) circle (0.15) node[below] {солнце (реальное)};
+			\draw[blue, thick, ->] (2.5,-0.5) to[out=110,in=20] (0,1.5);
+			\draw[dashed, ->] (0,1.5) -- (2.5, 1.9) node[right, align=center] {фантомное\\солнце,\\которое видит\\человек};
+		\end{scope}
+		
+		% Вектора
+		\begin{scope}[shift={(12,0.5)}]
+			\draw[->, thick, red] (0,0) -- (3,0.5) node[right] {$\vb{e}_s$};
+			\draw[->, thick, red] (0,0) -- (2,-1);
+			\draw[->, thick, red] (3,0.5) -- (2,-1) node[midway, right] {$d\vb{e}_s$};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+\begin{nb}
+	\textbf{19.02} \quad $\lambda \to 0$, \quad $D \gg \lambda$.
+	
+	Пусть поле задано в виде:
+	$\vb{E}(\vb{r}, t) = a(\vb{r}) \cdot \exp(i (k_0 R - \omega t))$
+	
+	Тогда из уравнения эйконала:
+	$\begin{cases}
+		(\vb{\nabla} R)^2 = n^2(\vb{r}) \\
+		2(\vb{\nabla} a, \vb{\nabla} R) + a \Delta R = 0 \quad \big| \cdot a
+	\end{cases}$ \quad $\vb{\nabla} R = n \vb{e}_s$
+	
+	$2a(\vb{\nabla} a, \vb{\nabla} R) + a^2 (\nabla^2 R) = 0$
+	
+	$(\vb{\nabla}, a^2(\vb{\nabla} R)) = 0$
+	
+	$(\vb{\nabla}, a^2 n \vb{e}_s) = 0$
+	
+	Так как $a(\vb{r}) \sim E$ и $n a(\vb{r}) \sim B$, то $E B \sim S$. Учитывая $E = vB$, $v = c/n$, $B = nE/c$:
+	
+	$(\vb{\nabla}, \vb{S}) = 0 \implies \oint_S (\vb{S}, d\vb{S}) = 0 \quad \text{--- уравнение непрерывности.}$
+\end{nb}
+
+\subsection{Принцип Ферма}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=1]
+		\draw[thick, blue] (0,0) to[out=30,in=150] (4,0.5);
+		\draw[thick, blue] (0,-1) to[out=20,in=160] (4,-0.5);
+		\draw[thick, blue] (-0.5,-2) to[out=10,in=170] (4.5,-1.5);
+		
+		\node[blue] at (4, 0.8) {$R_2$};
+		\node[blue] at (4, -0.2) {$R_1$};
+		
+		\draw[->, thick] (0.5, -2.5) to[out=60,in=220] (2.5, 1.5) node[right] {$\vb{e}_s$};
+		\filldraw (1.1, -0.7) circle (0.05) node[left] {$1$};
+		\filldraw (2.1, 0.5) circle (0.05) node[left] {$2$};
+		
+		\draw[dashed, ->] (1.1, -0.7) -- (2.5, -0.2) node[midway, below] {$d\vb{l}$};
+		
+		\node at (6,0) {
+			$\begin{aligned}
+				& d\vb{l} = \begin{pmatrix} dx \\ dy \\ dz \end{pmatrix}, \quad \vb{\nabla} R = \begin{pmatrix} \pdv{R}{x} \\ \pdv{R}{y} \\ \pdv{R}{z} \end{pmatrix} \\
+				& \vb{\nabla} R = n \vb{e}_s \\
+				& \int_l \vb{\nabla} R \, d\vb{l} = \int_l n \vb{e}_s \, d\vb{l}
+			\end{aligned}$
+		};
+	\end{tikzpicture}
+\end{figure}
+
+\begin{equation*}
+	\int_l \qty( \pdv{R}{x} dx + \pdv{R}{y} dy + \pdv{R}{z} dz ) = \int_l dR = R_2 - R_1
+\end{equation*}
+Лучевое поле потенциально $\implies \oint_l dR = 0 \implies$ берем другую траекторию.
+
+\begin{equation*}
+	\oint n \vb{e}_s d\vb{l} = 0 \implies 0 = \int_1^2 + \int_2^1 = \int_{1 \to 2} n \vb{e}_s d\vb{l} - \int_{1 \to 2 (\text{alt})} n \vb{e}_s d\vb{l}
+\end{equation*}
+Сравнивая путь вдоль луча с альтернативным:
+\begin{equation*}
+	\int_1^2 n d\tilde{l} = \int_1^2 n \cos\alpha \, dl' \le \int_1^2 n \, dl'
+\end{equation*}
+Луч выберет этот путь (наименьшая траектория).
+
+\begin{definition}{Оптическая длина пути}{}
+	$L = \int n(l) dl$
+\end{definition}
+
+\begin{theorem}{Принцип Ферма}{}
+	\textbf{Первая формулировка:} Свет распространяется по пути, для которого оптическая длина пути минимальна:
+	\begin{equation*}
+		L = \int n(l) dl \to \min
+	\end{equation*}
+	\textbf{Вторая формулировка:} Свет распространяется по пути, требующему минимального времени:
+	\begin{equation*}
+		\int dt \to \min \quad \qty( dt = \frac{dl}{v_{\text{ф}}} )
+	\end{equation*}
+\end{theorem}
+
+\section{Следствия принципа Ферма (законы геометрической оптики)}
+
+\subsection{Законы отражения и преломления}
+
+\begin{theorem}{Закон Снеллиуса}{}
+	Для преломления света на границе двух сред с показателями $n_1$ и $n_2$:
+	\begin{equation*}
+		L = n_1 \sqrt{a_1^2 + x^2} + n_2 \sqrt{a_2^2 + (b-x)^2} \to \min
+	\end{equation*}
+	\begin{equation*}
+		\dv{L}{x} = 0 \implies n_1 \frac{x}{\sqrt{a_1^2 + x^2}} - n_2 \frac{b-x}{\sqrt{a_2^2 + (b-x)^2}} = 0
+	\end{equation*}
+	\begin{equation*}
+		n_1 \sin\theta_1 - n_2 \sin\theta_2 = 0 \implies \quad n_1 \sin\theta_1 = n_2 \sin\theta_2
+	\end{equation*}
+\end{theorem}
+
+\textbf{Полное внутреннее отражение:} 
+$n_2 \sin 90^\circ = n_1 \sin\theta_{\text{пред}} \implies \sin\theta_{\text{пред}} = \frac{n_2}{n_1}$.
+
+\subsection{Преломление на сферической границе}
+
+Пусть луч преломляется на сферической поверхности радиуса $R$. Угол падения равен $\alpha_1 + \beta$, угол преломления $\alpha_2 + \beta$.
+В параксиальном приближении ($\alpha, \beta \to 0$): $\sin\alpha \approx \tg\alpha \approx \alpha$, $\sin\beta \approx \tg\beta \approx \beta$.
+
+\begin{equation*}
+	n_1 \sin(\alpha_1 + \beta) = n_2 \sin(\alpha_2 + \beta) \quad \text{--- по з. преломления}
+\end{equation*}
+\begin{equation*}
+	n_1(\alpha_1 + \beta) = n_2(\alpha_2 + \beta)
+\end{equation*}
+\begin{equation*}
+	n_1 \alpha_1 + n_1 \beta = n_2 \alpha_2 + n_2 \beta \implies n_2 \alpha_2 = n_1 \alpha_1 - (n_2 - n_1)\beta
+\end{equation*}
+Так как $\beta \approx \sin\beta = \frac{y}{R}$:
+\begin{equation}
+	n_2 \alpha_2 = n_1 \alpha_1 - \frac{n_2 - n_1}{R} y \quad \text{--- ур-ние преломления луча на сферическую поверхность.}
+\end{equation}
+\textit{Поверхность выпуклая, $R > 0$. Поверхность вогнутая, $R < 0$.}
+
+\begin{definition}{Оптическая сила преломляющей поверхности}{}
+	\begin{equation*}
+		\Phi = \frac{n_2 - n_1}{R}
+	\end{equation*}
+\end{definition}
+
+Рассмотрим построение изображения (точка $S \to S'$, расстояния $a$ и $b$):
+$\alpha_1 \approx \frac{y}{a}$, $\alpha_2 \approx \frac{y}{b}$.
+\begin{equation*}
+	\frac{n_2}{b} = \frac{n_1}{a} - \frac{n_2 - n_1}{R} \implies \frac{n_1}{a} + \frac{n_2}{b} = \frac{n_2 - n_1}{R} = \Phi
+\end{equation*}
+Рассмотрим второй случай: лучи идут из бесконечности ($a = \infty$). Тогда они собираются в фокусе ($b = F$).
+\begin{equation*}
+	\text{Фокусное расст.: } \frac{n_2}{F} = \frac{n_2 - n_1}{R} \implies \frac{n_1}{a} + \frac{n_2}{b} = \frac{n_2}{F}
+\end{equation*}
+
+\section{Центрированные оптические системы. Элементы матричной оптики}
+
+\begin{definition}{ЦОС}{}
+	\textbf{Центрированная оптическая система (ЦОС)} --- набор однородных оптических промежутков из сферических отражающих и преломляющих поверхностей, центры кривизны которых лежат на одной прямой, называемой оптической осью системы.
+\end{definition}
+
+Линза --- кусок материала, ограниченный двумя сферическ. поверхностями. Бывает собирающая (двояковыпуклая) и рассеивающая (двояковогнутая).
+
+\textbf{Параксиальное приближение:}
+\begin{itemize}
+	\item все лучи имеют малый угол с оптической осью;
+	\item каждый луч, проходя преломляющую границу находится на малом расстоянии от оптической оси.
+\end{itemize}
+
+Опишем состояние луча вектором: $\vb{l}(z) = \begin{pmatrix} y \\ n\alpha \end{pmatrix}$. Трансформация луча описывается матрицей:
+\begin{equation*}
+	\begin{pmatrix} y_2 \\ n_2 \alpha_2 \end{pmatrix} = \begin{pmatrix} A & B \\ C & D \end{pmatrix} \begin{pmatrix} y_1 \\ n_1 \alpha_1 \end{pmatrix}
+\end{equation*}
+
+\textbf{Матрица трансляции $\hat{T}$:} луч проходит расстояние $L$ в среде с $n = \text{const}$.
+\begin{equation*}
+	y_2 = y_1 + L\alpha_1 = y_1 + \frac{L}{n} (n_1\alpha_1)
+\end{equation*}
+\begin{equation*}
+	\begin{pmatrix} y_2 \\ n_2\alpha_2 \end{pmatrix} = \begin{pmatrix} y_1 + \frac{L}{n} (n_1\alpha_1) \\ n_1\alpha_1 \end{pmatrix} = \begin{pmatrix} 1 & \frac{L}{n} \\ 0 & 1 \end{pmatrix} \begin{pmatrix} y_1 \\ n_1\alpha_1 \end{pmatrix} \implies \hat{T} = \begin{pmatrix} 1 & \frac{L}{n} \\ 0 & 1 \end{pmatrix}
+\end{equation*}
+
+\textbf{Матрица преломления $\hat{L}$:} луч преломляется на границе. $y_1 = y_2$.
+\begin{equation*}
+	n_2\alpha_2 = - \frac{n_2 - n_1}{R} y_1 + n_1\alpha_1 = -\Phi y_1 + n_1\alpha_1
+\end{equation*}
+\begin{equation*}
+	\begin{pmatrix} y_2 \\ n_2\alpha_2 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ -\Phi & 1 \end{pmatrix} \begin{pmatrix} y_1 \\ n_1\alpha_1 \end{pmatrix} \implies \hat{L} = \begin{pmatrix} 1 & 0 \\ -\Phi & 1 \end{pmatrix}
+\end{equation*}
+
+Последовательное прохождение системы:
+\begin{equation*}
+	\begin{pmatrix} y_k \\ n_k \alpha_k \end{pmatrix} = \underbrace{\hat{M}_k \cdot \hat{M}_{k-1} \dots \hat{M}_2 \cdot \hat{M}_1}_{\hat{M}} \begin{pmatrix} y_1 \\ n_1 \alpha_1 \end{pmatrix}
+\end{equation*}
+
+\subsection{Примеры систем}
+
+\textbf{(1) Толстая линза:}
+\begin{equation*}
+	\hat{M} = \begin{pmatrix} 1 & 0 \\ -\Phi_2 & 1 \end{pmatrix} \begin{pmatrix} 1 & L/n \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi_1 & 1 \end{pmatrix}, \quad \text{где } \Phi_2 = \frac{n_0 - n}{R_2}
+\end{equation*}
+
+\textbf{(2) Тонкая линза:} $L \to 0 \implies \hat{T} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$.
+\begin{equation*}
+	\hat{M} = \begin{pmatrix} 1 & 0 \\ -\Phi_2 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi_1 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ -(\Phi_1+\Phi_2) & 1 \end{pmatrix}
+\end{equation*}
+Оптическая сила тонкой линзы: $\Phi = \Phi_1 + \Phi_2 = (n - n_0)\qty(\frac{1}{R_1} - \frac{1}{R_2})$.
+
+Получим \textbf{формулу тонкой линзы} через матрицы. Пусть объект на расстоянии $a$, изображение на $b$.
+\begin{equation*}
+	\hat{M}_{\text{полн}} = \hat{T}_b \cdot \hat{M}_{\text{линзы}} \cdot \hat{T}_a = \begin{pmatrix} 1 & b/n_2 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi & 1 \end{pmatrix} \begin{pmatrix} 1 & a/n_1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 - \frac{b}{n_2}\Phi & \frac{a}{n_1} + \frac{b}{n_2} - \frac{ab}{n_1 n_2}\Phi \\ -\Phi & 1 - \frac{a}{n_1}\Phi \end{pmatrix}
+\end{equation*}
+Условие изображения: координата $y_2$ не должна зависеть от начального угла $\alpha_1$. 
+\begin{equation*}
+	y_2 = A y_1 + B (n_1\alpha_1) \implies \forall \alpha_1 \implies B = 0
+\end{equation*}
+\begin{equation*}
+	\frac{a}{n_1} + \frac{b}{n_2} - \frac{ab}{n_1 n_2}\Phi = 0 \implies \frac{a}{n_1} + \frac{b}{n_2} = \frac{ab}{n_1 n_2}\Phi \quad \Big| \cdot \frac{n_1 n_2}{ab}
+\end{equation*}
+\begin{equation}
+	\frac{n_1}{a} + \frac{n_2}{b} = \Phi \quad \text{--- формула тонкой линзы}
+\end{equation}
+Учитывая, что $\Phi = \frac{1}{F}$, получимаем классический вид: $\frac{n_1}{a} + \frac{n_2}{b} = \frac{1}{F}$.
+
+\section{Разложение излучения в спектр (спектральное разложение)}
+
+Аналогия с векторами: $\vb{a} = a_x \vb{e}_x + a_y \vb{e}_y + a_z \vb{e}_z$. Базисные орты ортогональны: $(\vb{e}_i, \vb{e}_j) = \delta_{ij}$ (символ Кронекера).
+
+Для сигнала $f(t)$ периодом $T$ базисом могут служить гармонические функции $\{\sin \omega_m t\}_{m=0}^\infty$ и $\{\cos \omega_m t\}_{m=0}^\infty$, где частоты $\omega_m = \frac{2\pi}{T}m$. В комплексном виде базис: $\exp(\pm i\omega_m t)$.
+\begin{equation*}
+	f(t) = \sum_{m=0}^\infty C_m \cos\omega_m t + S_m \sin\omega_m t = \sum_{m=-\infty}^\infty f_m \exp(i\omega_m t)
+\end{equation*}
+
+Спектр --- это разложение по монохроматическим гармоникам. Найдем коэффициенты $f_n$:
+\begin{equation*}
+	\int_{-T/2}^{T/2} f(t) \exp(-i\omega_n t) dt = \int_{-T/2}^{T/2} \sum_{m=-\infty}^\infty f_m \exp(i(\omega_m - \omega_n)t) dt = \sum_{m=-\infty}^\infty f_m \int_{-T/2}^{T/2} \exp(i(\omega_m - \omega_n)t) dt
+\end{equation*}
+Интеграл дает $\delta$-функцию Кронекера:
+\begin{equation*}
+	\int_{-T/2}^{T/2} \exp(i(\omega_m - \omega_n)t) dt = \frac{\exp(i(\omega_m-\omega_n)\frac{T}{2}) - \exp(-i(\omega_m-\omega_n)\frac{T}{2})}{i(\omega_m-\omega_n)} = T \frac{\sin((\omega_m-\omega_n)\frac{T}{2})}{(\omega_m-\omega_n)\frac{T}{2}} = T \delta_{mn}
+\end{equation*}
+Отсюда:
+\begin{equation*}
+	\sum_{m=-\infty}^\infty f_m T \delta_{mn} = f_n T \implies f_m(\omega_m) = \frac{1}{T} \int_{-T/2}^{T/2} f(t) \exp(-i\omega_m t) dt
+\end{equation*}
+
+\subsection{Преобразование Фурье для непериодического сигнала}
+
+Для ограниченного сигнала (любая "хорошая" функция) переходим к пределу $T \to \infty$. Расстояние между гармониками $\delta\omega = \omega_{m+1} - \omega_m = \frac{2\pi}{T} \to 0$.
+
+\begin{equation*}
+	E(t) = \frac{1}{\delta\omega} \sum_{m=-\infty}^\infty f_m \exp(i\omega_m t) \delta\omega = \sum_{m=-\infty}^\infty E(\omega_m) \exp(i\omega_m t) \delta\omega \xrightarrow{T \to \infty} \int_{-\infty}^\infty E(\omega) \exp(i\omega t) d\omega
+\end{equation*}
+Где спектральная плотность амплитуды $E(\omega)$:
+\begin{equation*}
+	E(\omega) = \frac{f_m}{\delta\omega} = \frac{T}{2\pi} f_m = \frac{1}{2\pi} \int_{-T/2}^{T/2} E(t) \exp(-i\omega t) dt \xrightarrow{T \to \infty} \frac{1}{2\pi} \int_{-\infty}^\infty E(t) \exp(-i\omega t) dt
+\end{equation*}
+
+\begin{theorem}{Преобразование Фурье}{}
+	\textbf{Прямое:} $\displaystyle E(\omega) = \frac{1}{2\pi} \int_{-\infty}^\infty E(t) \exp(-i\omega t) dt$ \\
+	\textbf{Обратное:} $\displaystyle E(t) = \int_{-\infty}^\infty E(\omega) \exp(i\omega t) d\omega$
+\end{theorem}
+Для непериодических полей разложение в спектр дает непрерывный набор различных частот.
+
+\subsection{Энергетический спектр излучения. Интенсивность}
+
+\begin{equation*}
+	W \sim \int_{-\infty}^\infty |E(t)|^2 dt = \int_{-\infty}^\infty E(t) E^*(t) dt = \int_{-\infty}^\infty E^*(t) dt \int_{-\infty}^\infty E(\omega) \exp(i\omega t) d\omega =
+\end{equation*}
+\begin{equation*}
+	= \int_{-\infty}^\infty E(\omega) d\omega \int_{-\infty}^\infty E^*(t) \exp(i\omega t) dt = \int_{-\infty}^\infty E(\omega) d\omega \qty[ \int_{-\infty}^\infty E(t) \exp(-i\omega t) dt ]^* = 2\pi \int_{-\infty}^\infty |E(\omega)|^2 d\omega
+\end{equation*}
+\begin{equation}
+	S(\omega) = \dv{W}{\omega} \sim |E(\omega)|^2 \quad \text{--- спектральная плотность энергии.}
+\end{equation}
+
+Пример прямоугольного цуга волн: $E(t) = E_0 \cos(\omega_0 t)$ при $|t| \le \tau/2$.
+Получаем спектр $\tilde{E}(\omega) \sim \frac{\sin((\omega_0 - \omega)\tau/2)}{(\omega_0 - \omega)\tau/2}$. Ширина спектрального пика $\Delta\omega \sim \frac{2\pi}{\tau}$.
+\begin{equation*}
+	\Delta\omega \cdot \tau \sim 2\pi \implies \Delta\omega \cdot \tau \cdot \hbar = 2\pi\hbar \implies \Delta E \Delta t \sim \hbar \quad \text{--- соотношение неопределенности Гейзенберга.}
+\end{equation*}
+
+\section{Поляризация плоских монохроматических волн}
+
+Любой сигнал можно представить в виде суперпозиции плоских монохроматических волн (решений волнового уравнения):
+\begin{equation*}
+	E(\vb{r}, t) = \iint E(\vb{k}, \omega) \cdot \exp(i(\omega t - \vb{k}\vb{r})) d\vb{k} d\omega
+\end{equation*}
+
+\textbf{Волну, в которой направление колебаний вектора напряженности $\vb{E}$ каким-либо образом упорядочено, называют поляризованной.}
+
+\subsection{Виды поляризации}
+\begin{enumerate}
+	\item \textbf{Линейная (плоская).} Векторы $(\vb{E}, \vb{k})$ лежат в одной плоскости.
+	\begin{equation*}
+		\vec{E} = \vec{e}_x E_x + \vec{e}_y E_y = \vec{e}_x E_{0x} e^{i\varphi} + \vec{e}_y E_{0y} e^{i\varphi}
+	\end{equation*}
+	
+	\item \textbf{Циркулярная (круговая).} 
+	\begin{equation*}
+		E_x = \frac{E_0}{\sqrt{2}} \cos\omega t, \quad E_y = \frac{E_0}{\sqrt{2}} \sin\omega t = \frac{E_0}{\sqrt{2}} \cos\qty(\omega t - \frac{\pi}{2}) \implies E_x^2 + E_y^2 = E_0^2
+	\end{equation*}
+	Вектор можно представить через циркулярные орты:
+	\begin{equation*}
+		\tilde{\vec{E}} = E_0 e^{i\varphi} \qty( \frac{\vec{e}_x \pm i\vec{e}_y}{\sqrt{2}} ) = E_0 e^{i\varphi} \vec{e}_\pm, \quad \text{где } \vec{e}_\pm = \frac{\vec{e}_x \pm i\vec{e}_y}{\sqrt{2}}
+	\end{equation*}
+	Орты ортогональны $\implies$ скалярное произведение равно $0$. Различают правую и левую круговую поляризацию.
+	
+	\item \textbf{Эллиптическая поляризация.}
+	\begin{equation*}
+		E_x = a \cos\omega t, \quad E_y = b \sin\omega t \implies \frac{E_x^2}{a^2} + \frac{E_y^2}{b^2} = 1
+	\end{equation*}
+	В общем случае:
+	\begin{equation*}
+		E_x(\vb{r}, t) = E_{0x} \cos(\omega t - \vb{k}\vb{r} + \varphi_x) = E_{0x} \cos(\varphi + \varphi_x)
+	\end{equation*}
+	\begin{equation*}
+		E_y(\vb{r}, t) = E_{0y} \cos(\omega t - \vb{k}\vb{r} + \varphi_y) = E_{0y} \cos(\varphi + \varphi_y)
+	\end{equation*}
+	Исключая время ($\varphi$), возведя в квадрат и сложив, получаем уравнение эллипса:
+	\begin{equation}
+		\qty(\frac{E_x}{E_{0x}})^2 + \qty(\frac{E_y}{E_{0y}})^2 - 2 \frac{E_x E_y}{E_{0x} E_{0y}} \cos(\varphi_y - \varphi_x) = \sin^2(\varphi_y - \varphi_x)
+	\end{equation}
+	Если разность фаз $\Delta\varphi = \pi/2$ --- обычный эллипс с осями вдоль $x, y$. Если дополнительно $E_{0y} = E_{0x}$ --- обычная циркулярная.
+\end{enumerate}
+
+\begin{nb}
+	\textbf{Естественный (неполяризованный) свет} не имеет выделенной поляризации. Но его можно представить в виде суммы двух линейных некогерентных (разность фаз непостоянна во времени) колебаний или двух круговых в разные стороны.
+\end{nb}
+
+\begin{definition}{Степень поляризации}{}
+	Отношение интенсивности поляризованной части волны ко всей интенсивности:
+	\begin{equation*}
+		P = \frac{I_{\text{пол}}}{I_0} = \frac{I_{\max} - I_{\min}}{I_{\max} + I_{\min}}
+	\end{equation*}
+\end{definition}
+
+Поляризаторы --- устройства, пропускающие излучение только при определенных направлениях колебаний вектора напряженности $\vec{E}$.
+
+\begin{theorem}{Закон Малюса}{}
+	Такую интенсивность пропустит поляризатор, когда через него пройдет линейно поляризованное излучение под углом $\theta$ к оси пропускания:
+	\begin{equation*}
+		I = I_0 \cos^2\theta
+	\end{equation*}
+\end{theorem}
+
+
+\begin{nb}
+	Две круговые поляризации в разные стороны дают линейную поляризацию. 
+	Если свет не имеет поляризации, его можно представить в виде 2х линейных некогерентных (разность фаз непостоянна во времени) колебаний.
+\end{nb}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=0.8]
+		\begin{scope}[shift={(0,0)}]
+			\draw[<->, thick] (-1,0) -- (1,0);
+			\draw[<->, thick] (0,-1) -- (0,1);
+			\draw[<->, thick] (-0.7,-0.7) -- (0.7,0.7);
+			\draw[<->, thick] (-0.7,0.7) -- (0.7,-0.7);
+		\end{scope}
+		
+		\node at (2,0) {\Large $=$};
+		
+		\begin{scope}[shift={(4,0)}]
+			\draw[<->, thick] (0,-1) -- (0,1) node[above] {$I_{\max} (\text{или } I_0)$};
+			\draw[<->, thick] (-1,0) -- (1,0) node[right] {$I_{\min}$};
+		\end{scope}
+		
+		\node at (6,0) {\Large $=$};
+		
+		\begin{scope}[shift={(8,0)}]
+			\draw[<->, thick] (0,-1) -- (0,1);
+			\draw[<->, thick] (-0.7,0) -- (0.7,0);
+			\node at (0,-1.5) {естеств.};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+\begin{definition}{Степень поляризации}{}
+	Интенсивность поляризации на интенсивность поляризованной волны:
+	\begin{equation*}
+		P = \frac{I_{\text{пол}}}{I_0} = \frac{I_{\max} - I_{\min}}{I_{\max} + I_{\min}}
+	\end{equation*}
+\end{definition}
+
+\begin{definition}{Поляризаторы}{}
+	Устройства, пропускающие излучение только при определенных направлениях колебаний вектора напряженности $\vb{E}$.
+\end{definition}
+
+\begin{theorem}{Закон Малюса}{}
+	Такую интенсивность пропустит поляризатор, когда через него пройдет излучение:
+	\begin{equation*}
+		I = I_0 \cos^2\theta
+	\end{equation*}
+\end{theorem}
+
+\begin{nb}
+	\textbf{Поляризационные фильтры:}
+	Естественный (неполяризованный) свет проходит через поляризатор и становится линейно поляризованным с амплитудой $E_0$. Затем он проходит через анализатор (второй поляризатор, повернутый на угол $\theta$), и на выходе получается линейно поляризованный свет с амплитудой $E_0 \cos\theta$.
+\end{nb}
+
+\section{05.03. Прохождение плоских монохроматических волн через границу прозрачных диэлектриков. Формулы Френеля}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=1]
+		\draw[thick] (-2,0) -- (2,0);
+		\draw[dashed] (0,-2) -- (0,2);
+		\node at (1.5, 0.5) {$n_1$};
+		\node at (1.5, -0.5) {$n_2$};
+		
+		\draw[->, thick] (-1.5, 1.5) -- (0,0);
+		\draw[->, thick] (0,0) -- (1.5, 1.5);
+		\draw[->, thick] (0,0) -- (1, -1.8);
+		
+		\draw[<->, thick, blue] (-1.2, 0.8) -- (-0.6, 1.4) node[above] {$\vb{E}_\parallel$};
+		\filldraw[blue] (-0.9, 1.1) circle (2pt) node[below right] {$\vb{E}_\perp$};
+		
+		\node at (6,0) {
+			\begin{tikzpicture}
+				\draw[<->, thick] (0,-0.8) -- (0,0.8);
+				\draw[<->, thick] (-0.6,-0.5) -- (0.6,0.5);
+				\draw[<->, thick] (-0.6,0.5) -- (0.6,-0.5);
+				\node at (1.2,0) {$=$};
+				\draw[<->, thick] (2,-0.8) -- (2,0.8);
+				\draw[<->, thick] (1.5,0) -- (2.5,0);
+			\end{tikzpicture}
+		};
+		\node[align=left] at (6, 1.5) {некогерентные волны};
+	\end{tikzpicture}
+\end{figure}
+
+Естественный свет можно представить в виде суммы некогерентных колебаний:
+\begin{equation*}
+	\vb{E} = \vb{E}_\parallel + \vb{E}_\perp
+\end{equation*}
+
+\subsection{Случай 1: Параллельная поляризация ($\vb{E}_\parallel$)}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=1.5]
+		\draw[thick, blue] (-3,0) -- (3,0) node[right, black] {$x$};
+		\draw[dashed, blue] (0,-2.5) -- (0,2.5);
+		\node at (2.5, 0.3) {$n_1$};
+		\node at (2.5, -0.3) {$n_2$};
+		\node[left] at (-3, -0.3) {$y$};
+		\draw[->, thick] (0,0) -- (0,-1) node[right] {$\vb{n}$};
+		
+		% Incident
+		\draw[->, thick, blue] (-2, 2) -- (0,0) node[midway, below left] {$\vb{k}_0$};
+		\draw[->, thick, red] (-1.5, 1.5) -- (-1.1, 1.9) node[above right, black] {$\vb{E}_0$};
+		\filldraw[red] (-1.5, 1.5) circle (1.5pt) node[left, black] {$\vb{B}_0$};
+		\node at (-2, 1) {\small падающая волна};
+		
+		% Reflected
+		\draw[->, thick, blue] (0,0) -- (2, 2) node[midway, below right] {$\vb{k}_r$};
+		\draw[->, thick, red] (1.5, 1.5) -- (1.1, 1.9) node[above, black] {$\vb{E}_r$};
+		\filldraw[red] (1.5, 1.5) circle (1.5pt) node[right, black] {$\vb{B}_r$};
+		\node at (2.5, 2) {\small отраженная волна};
+		
+		% Transmitted
+		\draw[->, thick, blue] (0,0) -- (1.2, -2.2) node[midway, right] {$\vb{k}_t$};
+		\draw[->, thick, red] (0.6, -1.1) -- (1.1, -0.8) node[right, black] {$\vb{E}_t$};
+		\filldraw[red] (0.6, -1.1) circle (1.5pt) node[left, black] {$\vb{B}_t$};
+		\node at (2, -1.5) {\small прошедшая волна};
+		
+		% Angles
+		\draw[blue] (0, 0.6) arc (90:135:0.6) node[midway, above] {$\theta_0$};
+		\draw[blue] (0, 0.7) arc (90:45:0.7) node[midway, above] {$\theta_r$};
+		\draw[blue] (0, -0.8) arc (270:298:0.8) node[midway, below] {$\theta_t$};
+	\end{tikzpicture}
+\end{figure}
+
+Граничные условия:
+\begin{equation} \label{eq:fresnel_bc1}
+	\begin{cases}
+		E_{0x} + E_{rx} = E_{tx} \\
+		B_{0y} + B_{ry} = B_{ty}
+	\end{cases}
+\end{equation}
+
+Волны задаются в виде $E \exp(i(\omega t - \vb{k}\vb{r}))$. Запишем проекции на ось $x$:
+\begin{equation*}
+	E_0 \exp(i(\omega_0 t - \vb{k}_0 \vb{r})) \cos\theta_0 + E_r \exp(i(\omega_r t - \vb{k}_r \vb{r})) \cos\theta_r = E_t \exp(i(\omega_t t - \vb{k}_t \vb{r})) \cos\theta_t
+\end{equation*}
+\begin{equation*}
+	B_0 \exp(i(\omega_0 t - \vb{k}_0 \vb{r})) + B_r \exp(i(\omega_r t - \vb{k}_r \vb{r})) = B_t \exp(i(\omega_t t - \vb{k}_t \vb{r}))
+\end{equation*}
+
+Положим $\vb{r} = 0$:
+\begin{equation*}
+	E_0 e^{i\omega_0 t} \cos\theta_0 + E_r e^{i\omega_r t} \cos\theta_r = E_t e^{i\omega_t t} \cos\theta_t
+\end{equation*}
+Чтобы равенство выполнялось для любого $t$, частоты должны быть равны: $\omega_0 = \omega_r = \omega_t$.
+
+Положим $t = 0$. Учитывая $(\vb{k}, \vb{r}) = k_x x + k_z z$ и границу при $z=0$:
+\begin{equation*}
+	a \cdot e^{-i \vb{k}_0 \vb{r}} + b \cdot e^{-i \vb{k}_r \vb{r}} = c \cdot e^{-i \vb{k}_t \vb{r}} \implies a, b, c = \text{const}
+\end{equation*}
+\begin{equation*}
+	k_{0x} = k_{rx} = k_{tx}
+\end{equation*}
+\begin{equation*}
+	k_0 \sin\theta_0 = k_r \sin\theta_r = k_t \sin\theta_t
+\end{equation*}
+Используя $k = \frac{\omega}{c} n$:
+\begin{equation*}
+	\frac{\omega}{c} n_1 \sin\theta_0 = \frac{\omega}{c} n_1 \sin\theta_r \implies \theta_0 = \theta_r = \theta_1 \quad \text{--- 1 закон геометрической оптики}
+\end{equation*}
+Обозначим $\theta_t = \theta_2$:
+\begin{equation*}
+	\frac{\omega}{c} n_1 \sin\theta_1 = \frac{\omega}{c} n_2 \sin\theta_2 \implies n_1 \sin\theta_1 = n_2 \sin\theta_2 \quad \text{--- закон преломления}
+\end{equation*}
+
+Дополнительное условие непрерывности тангенциальных компонент:
+\begin{equation*}
+	\begin{cases}
+		E_{2\tau} - E_{1\tau} = 0 \\
+		B_{2\tau} - B_{1\tau} = \mu_0(i + i') = 0 \quad (\text{т.к. циркуляция})
+	\end{cases}
+\end{equation*}
+
+Вернемся к граничным условиям для амплитуд. Учитывая $B = nE$:
+\begin{equation*}
+	\begin{cases}
+		E_0 \cos\theta_1 + E_r \cos\theta_1 = E_t \cos\theta_2 \\
+		B_0 - B_r = B_t \implies n_1 E_0 - n_1 E_r = n_2 E_t
+	\end{cases}
+\end{equation*}
+Нам нужно найти амплитудные коэффициенты отражения $r_\parallel = \frac{E_r}{E_0}$ и пропускания $t_\parallel = \frac{E_t}{E_0}$:
+\begin{equation*}
+	\begin{cases}
+		E_0 \cos\theta_1 + E_r \cos\theta_1 = E_t \cos\theta_2 \quad \big| \cdot n_2 \\
+		n_1 E_0 - n_1 E_r = n_2 E_t \quad \big| \cdot \cos\theta_2
+	\end{cases}
+\end{equation*}
+Вычтем одно из другого:
+\begin{equation*}
+	n_2 E_0 \cos\theta_1 + n_2 E_r \cos\theta_1 = n_1 E_0 \cos\theta_2 - n_1 E_r \cos\theta_2
+\end{equation*}
+\begin{equation*}
+	E_r (n_1 \cos\theta_2 + n_2 \cos\theta_1) = E_0 (n_1 \cos\theta_2 - n_2 \cos\theta_1)
+\end{equation*}
+\begin{equation}
+	r_\parallel = \frac{E_r}{E_0} = \frac{n_1 \cos\theta_2 - n_2 \cos\theta_1}{n_1 \cos\theta_2 + n_2 \cos\theta_1} \quad \text{--- I формула Френеля}
+\end{equation}
+
+Для $E_t$:
+\begin{equation*}
+	E_t = \frac{E_0}{\cos\theta_2} \cos\theta_1 \qty(1 + \frac{n_1 \cos\theta_2 - n_2 \cos\theta_1}{n_1 \cos\theta_2 + n_2 \cos\theta_1}) = E_0 \cdot \frac{\cos\theta_1}{\cos\theta_2} \cdot \frac{2n_1 \cos\theta_2}{n_1 \cos\theta_2 + n_2 \cos\theta_1}
+\end{equation*}
+\begin{equation}
+	t_\parallel = \frac{E_t}{E_0} = \frac{2n_1 \cos\theta_1}{n_1 \cos\theta_2 + n_2 \cos\theta_1} \quad \text{--- коэффициент пропускания}
+\end{equation}
+
+\begin{nb}
+	Внимание: $r_\parallel + t_\parallel \neq 1$.
+\end{nb}
+
+\textbf{Случай вертикального (нормального) падения:} $\theta_1 = \theta_2 = 0$.
+\begin{equation*}
+	r_\parallel = \frac{n_1 - n_2}{n_1 + n_2}, \quad t_\parallel = \frac{2n_1}{n_1 + n_2}
+\end{equation*}
+Если $n_2 > n_1$, то $r_\parallel < 0 \implies \vb{E}_r \uparrow\downarrow \vb{E}_0$. Изменение фазы: $\delta\varphi = \pm \pi$.
+Учитывая $\varphi = \omega t - \vb{k}\vb{r}$ и $\Delta\varphi = k \Delta r = \frac{2\pi}{\lambda} \Delta r = \pi \implies \Delta r = \frac{\lambda}{2}$.
+Происходит \textbf{потеря полуволны} $\Delta = \frac{\lambda}{2}$.
+
+\subsection{Случай 2: Перпендикулярная поляризация ($\vb{E}_\perp$)}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=1.5]
+		\draw[thick, blue] (-3,0) -- (3,0) node[right, black] {$x$};
+		\draw[dashed, blue] (0,-2.5) -- (0,2.5);
+		\node at (2.5, 0.3) {$n_1$};
+		\node at (2.5, -0.3) {$n_2$};
+		\node[left] at (-3, -0.3) {$y$};
+		
+		% Incident
+		\draw[->, thick, blue] (-2, 2) -- (0,0) node[midway, below left] {$\vb{k}_0$};
+		\filldraw[red] (-1.5, 1.5) circle (1.5pt) node[above right, black] {$\vb{E}_0$};
+		\draw[->, thick, red] (-1.5, 1.5) -- (-1.1, 1.1) node[below right, black] {$\vb{B}_0$};
+		\node at (-2, 2.3) {\small падающая волна};
+		
+		% Reflected
+		\draw[->, thick, blue] (0,0) -- (2, 2) node[midway, below right] {$\vb{k}_r$};
+		\filldraw[red] (1.5, 1.5) circle (1.5pt) node[above left, black] {$\vb{E}_r$};
+		\draw[->, thick, red] (1.5, 1.5) -- (1.1, 1.1) node[below left, black] {$\vb{B}_r$};
+		\node at (2.5, 2.3) {\small отраженная волна};
+		
+		% Transmitted
+		\draw[->, thick, blue] (0,0) -- (1.2, -2.2) node[midway, right] {$\vb{k}_t$};
+		\filldraw[red] (0.6, -1.1) circle (1.5pt) node[below left, black] {$\vb{E}_t$};
+		\draw[->, thick, red] (0.6, -1.1) -- (1.1, -1.4) node[right, black] {$\vb{B}_t$};
+		\node at (2, -1.5) {\small прошедшая волна};
+		
+		% Angles
+		\draw[blue] (0, 0.6) arc (90:135:0.6) node[midway, above] {$\theta_0$};
+		\draw[blue] (0, 0.7) arc (90:45:0.7) node[midway, above] {$\theta_r$};
+		\draw[blue] (0, -0.8) arc (270:298:0.8) node[midway, below] {$\theta_t$};
+	\end{tikzpicture}
+\end{figure}
+
+Граничные условия для амплитуд:
+\begin{equation*}
+	\begin{cases}
+		E_0 + E_r = E_t \\
+		B_0 \cos\theta_1 - B_r \cos\theta_1 = B_t \cos\theta_2
+	\end{cases}
+\end{equation*}
+
+Используя $B = nE$, перепишем второе уравнение:
+\begin{equation*}
+	n_1 E_0 \cos\theta_1 - n_1 E_r \cos\theta_1 = n_2 E_t \cos\theta_2
+\end{equation*}
+Решая систему, получаем коэффициенты Френеля для перпендикулярной поляризации:
+\begin{equation}
+	r_\perp = \frac{E_r}{E_0} = \frac{n_1 \cos\theta_1 - n_2 \cos\theta_2}{n_1 \cos\theta_1 + n_2 \cos\theta_2}
+\end{equation}
+\begin{equation}
+	t_\perp = \frac{2n_1 \cos\theta_1}{n_1 \cos\theta_1 + n_2 \cos\theta_2}
+\end{equation}
+
+Преобразуем выражение для $r_\parallel$ через тригонометрические функции, используя закон Снеллиуса $n_2 \sin\theta_2 = n_1 \sin\theta_1 \implies \frac{n_1}{n_2} = \frac{\sin\theta_2}{\sin\theta_1}$:
+\begin{equation*}
+	r_\parallel = \frac{\frac{n_1}{n_2}\cos\theta_2 - \cos\theta_1}{\frac{n_1}{n_2}\cos\theta_2 + \cos\theta_1} = \frac{\frac{\sin\theta_2}{\sin\theta_1}\cos\theta_2 - \cos\theta_1}{\frac{\sin\theta_2}{\sin\theta_1}\cos\theta_2 + \cos\theta_1} = \frac{\frac{1}{2}\sin 2\theta_2 - \frac{1}{2}\sin 2\theta_1}{\frac{1}{2}\sin 2\theta_2 + \frac{1}{2}\sin 2\theta_1} = \frac{\cos(\theta_1+\theta_2)\sin(\theta_2-\theta_1)}{\cos(\theta_2-\theta_1)\sin(\theta_1+\theta_2)} = \frac{\tg(\theta_2 - \theta_1)}{\tg(\theta_1 + \theta_2)}
+\end{equation*}
+Аналогично для $r_\perp$:
+\begin{equation}
+	r_\perp = \frac{\sin(\theta_1 - \theta_2)}{\sin(\theta_1 + \theta_2)}
+\end{equation}
+
+\subsection{Угол Брюстера}
+
+\textbf{Случай:} $\theta_1 + \theta_2 = \frac{\pi}{2}$.
+\begin{equation*}
+	\tg(\theta_1 + \theta_2) = \infty \implies r_\parallel = 0, \quad r_\perp > 0
+\end{equation*}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=1]
+		\draw[thick] (-2,0) -- (2,0);
+		\draw[dashed] (0,-2) -- (0,2);
+		
+		% Incident
+		\draw[->, thick] (-1.5, 1.5) -- (0,0);
+		\draw[<->, thick] (-1.2, 0.8) -- (-0.8, 1.2);
+		\filldraw (-1, 1) circle (1.5pt);
+		
+		% Reflected (only dots!)
+		\draw[->, thick] (0,0) -- (1.5, 1.5) node[right, align=center] {отражения $E_\parallel$\\не будет\\весь свет\\пойдет в др. среду};
+		\filldraw (0.5, 0.5) circle (1.5pt);
+		\filldraw (1, 1) circle (1.5pt);
+		
+		% Transmitted
+		\draw[->, thick] (0,0) -- (1.5, -1.5);
+		\draw[<->, thick] (0.8, -1.2) -- (1.2, -0.8);
+		\filldraw (1, -1) circle (1.5pt);
+		
+		\draw (0.3, 0.3) arc (45:-45:0.42);
+		\node at (0.7, -0.1) {$90^\circ$};
+		
+		\draw (0, 0.5) arc (90:135:0.5) node[midway, above] {$\theta_1$};
+		\draw (0, -0.5) arc (270:315:0.5) node[midway, below] {$\theta_2$};
+	\end{tikzpicture}
+\end{figure}
+
+Найдем этот угол падения из закона Снеллиуса:
+\begin{equation*}
+	n_2 \sin\theta_2 = n_1 \sin\theta_1
+\end{equation*}
+\begin{equation*}
+	n_2 \sin\qty(\frac{\pi}{2} - \theta_1) = n_1 \sin\theta_1
+\end{equation*}
+\begin{equation*}
+	n_2 \cos\theta_1 = n_1 \sin\theta_1
+\end{equation*}
+\begin{equation}
+	\frac{n_2}{n_1} = \tg\theta_{\text{Бр}} \quad \text{где } \theta_{\text{Бр}} \text{ --- угол Брюстера}
+\end{equation}
+
+\begin{nb}
+	Для энергетических коэффициентов отражения $R$ и пропускания $T$:
+	\begin{equation*}
+		R_\parallel + T_\parallel = 1, \quad R_\perp + T_\perp = 1
+	\end{equation*}
+	Но для амплитудных коэффициентов:
+	\begin{equation*}
+		r_\parallel^2 + t_\parallel^2 \neq 1, \quad r_\perp^2 + t_\perp^2 \neq 1
+	\end{equation*}
+\end{nb}
