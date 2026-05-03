@@ -230,20 +230,22 @@ $\alpha_1 \approx \frac{y}{a}$, $\alpha_2 \approx \frac{y}{b}$.
 \subsection{Примеры систем}
 
 \textbf{(1) Толстая линза:}
-\begin{equation*}
-	\hat{M} = \begin{pmatrix} 1 & 0 \\ -\Phi_2 & 1 \end{pmatrix} \begin{pmatrix} 1 & L/n \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi_1 & 1 \end{pmatrix}, \quad \text{где } \Phi_2 = \frac{n_0 - n}{R_2}
-\end{equation*}
+\begin{align*}
+	\hat{M} &= \begin{pmatrix} 1 & 0 \\ -\Phi_2 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi_1 & 1 \end{pmatrix} = \\
+	&= \begin{pmatrix} 1 & 0 \\ -(\Phi_1+\Phi_2) & 1 \end{pmatrix}
+\end{align*}
 
 \textbf{(2) Тонкая линза:} $L \to 0 \implies \hat{T} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$.
-\begin{equation*}
-	\hat{M} = \begin{pmatrix} 1 & 0 \\ -\Phi_2 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi_1 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ -(\Phi_1+\Phi_2) & 1 \end{pmatrix}
-\end{equation*}
+\begin{align*}
+	\hat{M} &= \begin{pmatrix} 1 & 0 \\ -\Phi_2 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi_1 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ -(\Phi_1+\Phi_2) & 1 \end{pmatrix}
+\end{align*}
 Оптическая сила тонкой линзы: $\Phi = \Phi_1 + \Phi_2 = (n - n_0)\qty(\frac{1}{R_1} - \frac{1}{R_2})$.
 
 Получим \textbf{формулу тонкой линзы} через матрицы. Пусть объект на расстоянии $a$, изображение на $b$.
-\begin{equation*}
-	\hat{M}_{\text{полн}} = \hat{T}_b \cdot \hat{M}_{\text{линзы}} \cdot \hat{T}_a = \begin{pmatrix} 1 & b/n_2 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi & 1 \end{pmatrix} \begin{pmatrix} 1 & a/n_1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 - \frac{b}{n_2}\Phi & \frac{a}{n_1} + \frac{b}{n_2} - \frac{ab}{n_1 n_2}\Phi \\ -\Phi & 1 - \frac{a}{n_1}\Phi \end{pmatrix}
-\end{equation*}
+\begin{align*}
+	\hat{M}_{\text{полн}} &= \hat{T}_b \cdot \hat{M}_{\text{линзы}} \cdot \hat{T}_a = \begin{pmatrix} 1 & b/n_2 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ -\Phi & 1 \end{pmatrix} \begin{pmatrix} 1 & a/n_1 \\ 0 & 1 \end{pmatrix} = \\
+	&= \begin{pmatrix} 1 - \frac{b}{n_2}\Phi & \frac{a}{n_1} + \frac{b}{n_2} - \frac{ab}{n_1 n_2}\Phi \\ -\Phi & 1 - \frac{a}{n_1}\Phi \end{pmatrix}
+\end{align*}
 Условие изображения: координата $y_2$ не должна зависеть от начального угла $\alpha_1$. 
 \begin{equation*}
 	y_2 = A y_1 + B (n_1\alpha_1) \implies \forall \alpha_1 \implies B = 0
@@ -658,9 +660,10 @@ $\alpha_1 \approx \frac{y}{a}$, $\alpha_2 \approx \frac{y}{b}$.
 \end{equation}
 
 Преобразуем выражение для $r_\parallel$ через тригонометрические функции, используя закон Снеллиуса $n_2 \sin\theta_2 = n_1 \sin\theta_1 \implies \frac{n_1}{n_2} = \frac{\sin\theta_2}{\sin\theta_1}$:
-\begin{equation*}
-	r_\parallel = \frac{\frac{n_1}{n_2}\cos\theta_2 - \cos\theta_1}{\frac{n_1}{n_2}\cos\theta_2 + \cos\theta_1} = \frac{\frac{\sin\theta_2}{\sin\theta_1}\cos\theta_2 - \cos\theta_1}{\frac{\sin\theta_2}{\sin\theta_1}\cos\theta_2 + \cos\theta_1} = \frac{\frac{1}{2}\sin 2\theta_2 - \frac{1}{2}\sin 2\theta_1}{\frac{1}{2}\sin 2\theta_2 + \frac{1}{2}\sin 2\theta_1} = \frac{\cos(\theta_1+\theta_2)\sin(\theta_2-\theta_1)}{\cos(\theta_2-\theta_1)\sin(\theta_1+\theta_2)} = \frac{\tg(\theta_2 - \theta_1)}{\tg(\theta_1 + \theta_2)}
-\end{equation*}
+\begin{align*}
+	r_\parallel &= \frac{\frac{n_1}{n_2}\cos\theta_2 - \cos\theta_1}{\frac{n_1}{n_2}\cos\theta_2 + \cos\theta_1} = \frac{\frac{\sin\theta_2}{\sin\theta_1}\cos\theta_2 - \cos\theta_1}{\frac{\sin\theta_2}{\sin\theta_1}\cos\theta_2 + \cos\theta_1} = \frac{\sin 2\theta_2 - \sin 2\theta_1}{\sin 2\theta_2 + \sin 2\theta_1} = \\
+	&= \frac{\cos(\theta_1+\theta_2)\sin(\theta_2-\theta_1)}{\cos(\theta_2-\theta_1)\sin(\theta_1+\theta_2)} = \frac{\tg(\theta_2 - \theta_1)}{\tg(\theta_1 + \theta_2)}
+\end{align*}
 Аналогично для $r_\perp$:
 \begin{equation}
 	r_\perp = \frac{\sin(\theta_1 - \theta_2)}{\sin(\theta_1 + \theta_2)}

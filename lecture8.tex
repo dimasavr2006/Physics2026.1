@@ -1,4 +1,6 @@
-\subsection*{Вывод рабочих формул для расчета дифракции Фраунгофера на отверстии}
+\section{Дифракция Фраунгофера на отверстии}
+
+\subsection{Вывод рабочих формул}
 
 \begin{figure}[H]
 	\centering
@@ -125,9 +127,10 @@
 	&= \underbrace{E_0 \int_{-\frac{b}{2}}^{\frac{b}{2}} d\mathcal{X} e^{-ik\mathcal{X}\sin\varphi}}_{\sim E_0 \frac{\sin\qty[\frac{k}{2} b \sin\varphi]}{\frac{k}{2}\sin\varphi}} \cdot \sum_{m=0}^{N} e^{-ikmd\sin\varphi} \sim E_0 \frac{\sin\qty[\frac{\pi b}{\lambda}\sin\varphi]}{\frac{\pi b}{\lambda}\sin\varphi} \sum_{m=0}^{N} e^{-ikmd\sin\varphi} \implies
 \end{align*}
 
-\begin{equation*}
-	E_1(\varphi) \cdot \sum_{m=0}^{N} e^{-ikmd\sin\varphi} = E_1(\varphi) \cdot \frac{1 - \exp{-ikNd\sin\varphi}}{1 - \exp{-ikd\sin\varphi}} = E_1(\varphi) \cdot \frac{\exp{i \frac{k}{2} Nd\sin\varphi} \qty( e^{\frac{i}{2}kNd\sin\varphi} - e^{-\frac{i}{2}kNd\sin\varphi} )}{\exp{i \frac{k}{2} d\sin\varphi} \qty( e^{\frac{i}{2}kd\sin\varphi} - e^{-\frac{i}{2}kd\sin\varphi} )} \implies
-\end{equation*}
+\begin{align*}
+	E_1(\varphi) \cdot \sum_{m=0}^{N} e^{-ikmd\sin\varphi} &= E_1(\varphi) \cdot \frac{1 - \exp{-ikNd\sin\varphi}}{1 - \exp{-ikd\sin\varphi}} = \\
+	&= E_1(\varphi) \cdot \frac{\exp{i \frac{k}{2} Nd\sin\varphi} \qty( e^{\frac{i}{2}kNd\sin\varphi} - e^{-\frac{i}{2}kNd\sin\varphi} )}{\exp{i \frac{k}{2} d\sin\varphi} \qty( e^{\frac{i}{2}kd\sin\varphi} - e^{-\frac{i}{2}kd\sin\varphi} )} \implies
+\end{align*}
 
 \begin{equation*}
 	\implies E_1(\varphi) \cdot \frac{\exp{- \frac{i}{2}kNd\sin\varphi}}{\exp{- \frac{i}{2}kd\sin\varphi}} \cdot \frac{\sin\qty(\frac{1}{2}kNd\sin\varphi)}{\sin\qty(\frac{1}{2}kd\sin\varphi)} \sim E_0 \frac{\sin\qty(\pi N \frac{d}{\lambda} \sin\varphi)}{\sin\qty(\pi \frac{d}{\lambda} \sin\varphi)} \cdot \mathcal{X}
@@ -217,7 +220,7 @@
 	\item $\frac{d}{b} = \frac{m}{n}$
 \end{itemize}
 
-\subsection*{Дифракционная решетка как спектральный прибор}
+\subsection{Дифракционная решетка как спектральный прибор}
 
 $\sin\varphi = \frac{\lambda}{d} m \implies \sin\varphi \sim \lambda \implies$ разложение в спектр $\qty(\sin\varphi = \frac{k}{z})$
 
@@ -345,6 +348,7 @@ $\sin\varphi = \frac{\lambda}{d} m \implies \sin\varphi \sim \lambda \implies$ �
 		E_\tau = \frac{1}{4\pi\varepsilon_0} \frac{q}{R^2} \cdot \frac{a \tau t \sin\theta}{c\tau} = \frac{1}{4\pi\varepsilon_0} \frac{q a \sin\theta}{c^2 R} \sim \frac{1}{R}
 	\end{equation*}
 	$\theta = \frac{\pi}{2} / \theta = 0 \to E_\tau = 0$ не излучает (в направлении движения). На экваторе: $E_\tau = \text{max}$.
+	
 	(2) поле $E_\tau \sim \sin\theta$, $\theta$ -- угол между ускорением и расстоянием ($\theta = \widehat{\vb{a}, \vb{R}}$). В разных направлениях -- разное.
 \end{itemize}
 
@@ -356,7 +360,7 @@ $\sin\varphi = \frac{\lambda}{d} m \implies \sin\varphi \sim \lambda \implies$ �
 	т.е. еще раз: 1) $\theta = 0, \pi \to E_\tau = 0$, 2) $\theta = \frac{\pi}{2} \to E_\tau = \text{max}$.
 \end{nb}
 
-\subsection*{Модель атома Томсона}
+\subsection{Модель атома Томсона}
 
 $|q_e| = |q_+|$ --- система нейтральна. Это модель одна из лучших.
 \begin{figure}[H]
