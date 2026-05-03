@@ -161,9 +161,9 @@
 		% Second graph (interference comb)
 		\begin{scope}[shift={(7,0)}]
 			\draw[->] (-3, 0) -- (3, 0);
-			\foreach \x in {-2.4, -1.6, -0.8, 0, 0.8, 1.6, 2.4} {
-				\draw[thick, blue, samples=50, domain=\x-0.35:\x+0.35] plot (\x+\t, {1.5*(sin(\t*500)/(\t*500))^2});
-			}
+		\foreach \x in {-2.4, -1.6, -0.8, 0, 0.8, 1.6, 2.4} {
+			\draw[thick, blue, samples=50, variable=\tmp, domain=-0.35:0.35] plot ({\x+\tmp}, {1.5*(sin(\tmp*500)/(\tmp*500))^2});
+		}
 			\draw (-0.8, 0.1) -- (-0.8, -0.1) node[below] {$-\frac{\lambda}{d}$};
 			\draw (0.8, 0.1) -- (0.8, -0.1) node[below] {$\frac{\lambda}{d}$};
 			\draw (1.6, 0.1) -- (1.6, -0.1) node[below] {$\frac{2\lambda}{d}$};
