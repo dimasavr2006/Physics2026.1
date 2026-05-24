@@ -1,0 +1,556 @@
+\section{Взаимодействие света с веществом}
+
+При описании взаимодействия электромагнитных волн с веществом мы будем учитывать процессы рассеяния и поглощения энергии. Будем рассматривать макроскопически немагнитные и непроводящие среды, для которых магнитная проницаемость $\mu = 1$, а плотность сторонних токов $j = 0$.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=Stealth, scale=1.2]
+		% Среда
+		\draw[thick, fill=blue!10] (0,-0.6) rectangle (2,0.6);
+		\node at (1,0) {среда};
+		
+		% Входящая волна
+		\draw[->, thick] (-2,0) -- (0,0);
+		\node[above] at (-1,0) {$\vb{E}(\vb{r}, t)$};
+		
+		% Исходящая волна
+		\draw[->, thick] (2,0) -- (4,0);
+		\node[above] at (3,0) {$\vb{P}(\vb{r}, t)$};
+		
+		% Ансамбль атомов Томпсона
+		\node[align=center, font=\small] at (1, 1.2) {группа (ансамбль)\\ атомов Томпсона};
+		\draw[->, dashed] (1, 0.8) -- (1, 0.6);
+		
+		% Формулы справа
+		\node[draw, thick, fill=yellow!10, rounded corners, anchor=west] at (4.5, 0.3) {
+			$\vb{P} = \frac{\sum \vb{p}_i}{V}; \quad \vb{p} = \alpha \vb{E}$
+		};
+		\node[draw, thick, fill=yellow!10, rounded corners, anchor=west] at (4.5, -0.4) {
+			$\chi = f(\alpha)$
+		};
+	\end{tikzpicture}
+\end{figure}
+
+Макроскопический отклик среды описывается вектором поляризованности $\vb{P} = \varepsilon_0 \chi \vb{E}$. В зависимости от характера связи поляризованности с напряженностью поля $\vb{E}$, среды классифицируются следующим образом:
+\begin{itemize}
+	\item \textbf{Линейная среда}: отклик пропорционален полю ($\vb{P} \sim \vb{E}$, связь между ними строго линейная).
+	\item \textbf{Нелинейная среда}: восприимчивость зависит от поля ($\chi = \chi(\vb{E})$).
+	\item \textbf{Однородная среда}: свойства не меняются от точки к точке ($\chi = \text{const}$).
+	\item \textbf{Неоднородная среда}: свойства зависят от координат ($\chi = \chi(\vb{r})$).
+	\item \textbf{Изотропная среда}: свойства по всем направлениям одинаковы, при этом векторы поляризованности и поля сонаправлены ($\vb{P} \uparrow\uparrow \vb{E}$).
+	\item \textbf{Анизотропная среда}: свойства зависят от направления ($\vb{P} \not\uparrow\uparrow \vb{E}$), связь выражается через тензор восприимчивости:
+	\[ \chi = \hat{\chi}_{ij}, \quad P_i = \sum_{j} \chi_{ij} E_j \]
+\end{itemize}
+
+Связь между вектором электрической индукции $\vb{D}$ и полем $\vb{E}$ дается соотношением:
+\[ \vb{D} = \varepsilon \varepsilon_0 \vb{E} = \varepsilon_0 \vb{E} + \vb{P} \]
+Для разреженных сред справедливо соотношение $\chi = N \alpha$, где $N$ --- концентрация атомов, $\alpha$ --- поляризуемость отдельного атома. Тогда диэлектрическая проницаемость равна:
+\[ \varepsilon = 1 + \chi \]
+
+\subsection{Динамическая поляризуемость атома Томпсона}
+
+Рассмотрим классическую модель излучающего электрона в поле плоской монохроматической волны $\vb{E}(t) = \vb{E}_0 e^{i(kz - \omega t)}$.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=Stealth, scale=1.3]
+		% Атом Томпсона
+		\draw[thick] (0,0) circle (0.8);
+		\fill (0,0) circle (2pt) node[below left] {$q$};
+		\draw[->, thick, red] (0,0) -- (0.5,0.4) node[midway, above left] {$\vb{r}$};
+		
+		% Волна
+		\draw[thick, blue, domain=1.2:4.5, samples=100] plot (\x, {0.4*sin((\x-1.2)*360)});
+		\draw[->, thick] (1.2, 0) -- (5, 0) node[right] {$z$};
+		\node[below] at (3.2, -0.5) {$\vb{E}(t) = \vb{E}_0 e^{i(kz - \omega t)}$};
+	\end{tikzpicture}
+\end{figure}
+
+Запишем уравнение движения электрона (II закон Ньютона) с учетом возвращающей квазиупругой силы, силы сопротивления (затухания) и вынуждающей силы со стороны электрического поля волны:
+\[ m \ddot{\vb{r}} = -\eta \dot{\vb{r}} - k \vb{r} + q \vb{E}_{\text{внеш}} \]
+Разделим обе части на массу электрона $m$:
+\begin{equation}
+	\ddot{\vb{r}} + 2\beta \dot{\vb{r}} + \omega_0^2 \vb{r} = \frac{q}{m} \vb{E}_0 e^{i(kz - \omega t)} \label{eq:motion}
+\end{equation}
+Умножая на заряд $q$, перейдем к уравнению для индуцированного дипольного момента $\vb{p} = q \vb{r}$:
+\begin{equation}
+	\ddot{\vb{p}} + 2\beta \dot{\vb{p}} + \omega_0^2 \vb{p} = \frac{q^2}{m} \vb{E}_0 e^{i(kz - \omega t)}
+\end{equation}
+
+Полное решение этого неоднородного линейного дифференциального уравнения состоит из суммы общего решения однородного уравнения $\vb{p}_{\text{одн}}(t)$ и частного решения неоднородного уравнения $\vb{p}_{\text{неодн}}(t)$:
+\[ \vb{p}_{\text{общ}}(t) = \vb{p}_{\text{одн}}(t) + \vb{p}_{\text{неодн}}(t) \]
+Свободные колебания быстро затухают из-за диссипации энергии за характерное время $\tau \sim 10^{-8}\,\si{\second}$:
+\[ \vb{p}_{\text{одн}}(t) = \vb{p}_0 e^{-\beta t} e^{i \omega_0 t} \to 0 \]
+Установившиеся вынужденные колебания происходят на частоте вынуждающей силы:
+\[ \vb{p}_{\text{неодн}}(t) = \vb{p}_0 e^{i(kz - \omega t)} \]
+Подставляя $\vb{p}_{\text{неодн}}(t)$ в уравнение движения, получаем алгебраическое уравнение для комплексной амплитуды дипольного момента $\vb{p}_0$:
+\[ \qty( -\omega^2 - 2i \beta \omega + \omega_0^2 ) \vb{p}_0 = \frac{q^2}{m} \vb{E}_0 \]
+\[ \vb{p}_0 = \frac{q^2}{m} \cdot \frac{1}{\omega_0^2 - \omega^2 - 2i \beta \omega} \vb{E}_0 \]
+
+Следовательно, индуцированный дипольный момент $\vb{p} = \alpha(\omega) \vb{E}$, где вводится фундаментальное понятие:
+
+\begin{definition}{Динамическая поляризуемость атома Томпсона}{def:dynamic_polarizability}
+	Динамической поляризуемостью атома называется комплексный коэффициент пропорциональности между индуцированным дипольным моментом атома и напряженностью электрического поля волны:
+	\begin{equation}
+		\alpha(\omega) = \frac{q^2}{m} \cdot \frac{1}{\omega_0^2 - \omega^2 - 2i \beta \omega}
+	\end{equation}
+\end{definition}
+
+В комплексной форме поляризуемость представляется в виде вещественной и мнимой частей:
+\[ \alpha(\omega) = \alpha'(\omega) + i \alpha''(\omega) \]
+
+В разреженных средах диэлектрическая проницаемость $\varepsilon(\omega)$ и показатель преломления $n(\omega)$ имеют вид:
+\begin{align}
+	\varepsilon(\omega) &= 1 + \chi(\omega) = 1 + \frac{N q^2}{m \varepsilon_0} \cdot \frac{1}{\omega_0^2 - \omega^2 - 2i \beta \omega} = \varepsilon'(\omega) + i \varepsilon''(\omega) \\
+	n(\omega) &= \sqrt{\varepsilon(\omega)} = n'(\omega) + i n''(\omega)
+\end{align}
+
+\begin{nb}
+	\textbf{Доплеровское уширение спектральной линии.}
+	Помимо естественного (однородного) затухания, определяемого временем $\tau_{\text{уд}} \sim \frac{1}{N \sigma \bar{v}}$, существенную роль играет тепловое движение атомов. Из термодинамики средняя скорость теплового движения $\bar{v} \sim \sqrt{\frac{kT}{m}}$. Спектральная интенсивность линии с учетом теплового движения описывается гауссовым контуром:
+	\[ I(\omega) = I_0 \cdot \exp\qty[ -\frac{mc^2}{2kT} \qty( \frac{\omega - \omega_0}{\omega_0} )^2 ] \]
+	Ширина линии на полувысоте определяется формулой:
+	\[ \Delta \omega_{\text{доп}} = 2 \omega_0 \qty( \frac{2kT}{mc^2} )^{\frac{1}{2}} \sqrt{\ln 2} = 2 \sqrt{\ln 2} \cdot \frac{v_{\text{т}}}{c} \omega_0 \approx 1{,}67 \cdot \frac{v_{\text{т}}}{c} \omega_0 \]
+	где $v_{\text{т}} = \sqrt{\frac{2kT}{m}}$ --- тепловая скорость атомов.
+\end{nb}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=Stealth, scale=1.1]
+		% Однородное уширение
+		\draw[->] (-3,0) -- (3,0) node[right] {$\omega$};
+		\draw[->] (0,0) -- (0,3) node[above] {$I_0$};
+		\draw[thick, blue, domain=-2.5:2.5, samples=100] plot (\x, {2.5 / (1 + 4*\x*\x)});
+		\draw[<->] (-0.5, 1.25) -- (0.5, 1.25);
+		\node[above] at (0, 1.25) {$\Delta \omega \sim \frac{1}{\tau_{\text{уд}}}$};
+		\node[below] at (0,0) {$\omega_0$};
+		
+		% Доплеровское уширение
+		\begin{scope}[shift={(7,0)}]
+			\draw[->] (-3,0) -- (3,0) node[right] {$\omega$};
+			\draw[->] (0,0) -- (0,3) node[above] {$I_0$};
+			\draw[thick, red, domain=-2.8:2.8, samples=100] plot (\x, {2.5 * exp(-0.5*\x*\x)});
+			\draw[dashed] (-1.17, 1.25) -- (1.17, 1.25);
+			\draw[<->] (-1.17, 1.1) -- (1.17, 1.1);
+			\node[below] at (0, 1.1) {$\Delta \omega_{\text{доп}}$};
+			\node[below] at (0,0) {$\omega_0$};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+
+\subsection{Комплексный показатель преломления}
+
+Для плоских волн в поглощающей среде волновой вектор $\vb{k}$ становится комплексной величиной:
+\[ (\vb{k}, \vb{k}) = \frac{\omega^2}{c^2} n^2, \quad \vb{k} = \vb{k}' + i \vb{k}'' \]
+В изотропной среде направления фазовой скорости и затухания совпадают ($\vb{k}' \uparrow\uparrow \vb{k}''$), поэтому:
+\[ \vb{k} = \vec{e}_z \cdot \frac{\omega}{c} \qty( n'(\omega) + i n''(\omega) ) \]
+Электрическое поле плоской волны, распространяющейся вдоль оси $z$, запишется как:
+\begin{align*}
+	\vb{E}(z, t) &= \vb{E}_0 \cdot \exp\qty{ i \qty[ \qty(\vb{k}' + i \vb{k}'') z - \omega t ] } \\
+	&= \vb{E}_0 \cdot \exp\qty{ -\frac{\omega}{c} n''(\omega) z } \cdot \exp\qty{ i \omega \qty( \frac{n'(\omega)}{c} z - t ) }
+\end{align*}
+
+Определим фазу волны $\varphi = \omega \qty( \frac{n'(\omega)}{c} z - t ) = \text{const}$. Из условия постоянства фазы находим фазовую скорость:
+\[ \dv{\varphi}{t} = 0 \implies \frac{n'(\omega)}{c} \dv{z}{t} - 1 = 0 \implies v_{\text{ф}} = \frac{c}{n'(\omega)} \]
+
+Интенсивность света пропорциональна среднему значению квадрата напряженности поля:
+\[ I \sim \vb{E} \vb{E}^* = E_0^2 \cdot \exp\qty{ -2 \frac{\omega}{c} n''(\omega) z } = I_0 e^{-\gamma z} \]
+
+\begin{theorem}{Закон Бугера}{thm:buger}
+	Интенсивность света при распространении в поглощающей среде убывает по экспоненциальному закону:
+	\begin{equation}
+		I(z) = I_0 e^{-\gamma z}
+	\end{equation}
+	где комплексный коэффициент поглощения равен:
+	\begin{equation}
+		\gamma = \frac{2\omega}{c} n''(\omega)
+	\end{equation}
+\end{theorem}
+
+Физический смысл коэффициента поглощения:
+\begin{enumerate}
+	\item Если $\gamma > 0$ --- происходит \textbf{поглощение} энергии волны средой.
+	\item Если $\gamma < 0$ --- происходит \textbf{усиление} света (реализуется в лазерных средах с инверсной заселенностью).
+\end{enumerate}
+В дифференциальной форме закон Бугера записывается в виде: $\dv{I}{z} = -\gamma(\omega) I$.
+
+Распишем показатель преломления разреженного газа. Используя разложение $\sqrt{1+x} \approx 1 + x/2$:
+\[ n(\omega) = \sqrt{\varepsilon(\omega)} = \sqrt{1 + \frac{\omega_p^2}{\omega_0^2 - \omega^2 - 2i \beta \omega}} \approx 1 + \frac{1}{2} \frac{\omega_p^2}{\omega_0^2 - \omega^2 - 2i \beta \omega} \]
+где введена плазменная частота $\omega_p^2 \equiv \frac{N q^2}{\varepsilon_0 m}$.
+
+Разделяя вещественную и мнимую части, получаем:
+\begin{align}
+	n'(\omega) &= 1 + \frac{\omega_p^2}{2} \cdot \frac{\omega_0^2 - \omega^2}{\qty(\omega_0^2 - \omega^2)^2 + 4\beta^2 \omega^2} \\
+	n''(\omega) &= \frac{\omega_p^2}{2} \cdot \frac{\beta \omega}{\qty(\omega_0^2 - \omega^2)^2 + 4\beta^2 \omega^2}
+\end{align}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, x=0.95cm, y=0.95cm]
+		\begin{scope}
+			\draw[->] (0,-0.9) -- (0,2.35) node[above] {$n'(\omega)$};
+			\draw[->] (0,0) -- (5.3,0) node[right] {$\omega$};
+			\draw[dashed] (2.55,-0.85) -- (2.55,2.15);
+			\node[below] at (2.55,-0.85) {$\omega_0$};
+			\draw[thick, blue, domain=0.35:2.18, samples=100] plot (\x, {0.75 + 0.28/(2.55-\x)});
+			\draw[thick, red, domain=2.22:2.88, samples=80] plot (\x, {0.65 - 0.85*(\x-2.55)});
+			\draw[thick, blue, domain=2.92:4.95, samples=100] plot (\x, {0.75 - 0.28/(\x-2.55)});
+			\node[blue, align=center] at (1.15,1.65) {$\dv{n'}{\omega}>0$};
+			\node[red, align=center] at (2.75,0.95) {$\dv{n'}{\omega}<0$};
+			\node[blue, align=center] at (4.05,0.55) {$\dv{n'}{\omega}>0$};
+		\end{scope}
+		
+		\begin{scope}[shift={(7,0)}]
+			\draw[->] (0,0) -- (0,2.35) node[above] {$n''(\omega)$};
+			\draw[->] (0,0) -- (5.3,0) node[right] {$\omega$};
+			\draw[dashed] (2.55,0) -- (2.55,2.15);
+			\node[below] at (2.55,0) {$\omega_0$};
+			\draw[thick, red, domain=0.35:4.95, samples=160] plot (\x, {1.95 / (1 + 7.5*(\x-2.55)*(\x-2.55))});
+			\draw[<->] (2.1,0.95) -- (3.0,0.95);
+			\node[above] at (2.55,0.95) {$\Delta\omega$};
+			\node[right, align=left] at (3.15,1.55) {$\sim \dfrac{\omega_p}{4\beta\omega}$};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+Вдали от резонанса ($\omega \ll \omega_0$) мнимая часть пренебрежимо мала, а вещественная часть растет с ростом частоты (нормальная дисперсия): $n' - 1 \sim \frac{1}{\lambda^2}$.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=Stealth, scale=1.1]
+		\draw[->] (0,0) -- (4,0) node[right] {$\lambda$};
+		\draw[->] (0,0) -- (0,2.5) node[above] {$n'(\omega)$};
+		\draw[thick, blue, domain=0.5:3.5, samples=100] plot (\x, {0.3 + 1/(\x*\x)});
+		\node[right] at (1.5, 1.5) {$\omega \ll \omega_0$};
+		\node[right] at (1.5, 1.0) {$\sim \frac{1}{\lambda^2}$};
+	\end{tikzpicture}
+\end{figure}
+
+
+\subsection{Неоднородные волны}
+
+В случае, когда фазовые фронты и плоскости постоянной амплитуды не параллельны ($\vb{k}' \not\parallel \vb{k}''$), волна называется неоднородной:
+\[ (\vb{k}, \vb{k}) = \qty( \vb{k}' + i\vb{k}'' )^2 = (\vb{k}')^2 - (\vb{k}'')^2 + 2i(\vb{k}', \vb{k}'') \]
+В прозрачной среде показатель преломления вещественный, поэтому мнимая часть этого выражения должна быть равна нулю:
+\[ (\vb{k}', \vb{k}'') = 0 \implies \vb{k}' \perp \vb{k}'' \]
+Это явление наблюдается, например, при полном внутреннем отражении на границе раздела сред, где преломленная волна затухает перпендикулярно границе раздела, но распространяется вдоль нее.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.15]
+		\fill[blue!6] (-2.6,-0.1) rectangle (4.6,1.8);
+		\draw[thick] (-2.6,0) -- (4.6,0);
+		\node[left] at (-2.6,1.45) {$n_1$};
+		\node[left] at (-2.6,-0.45) {$n_2<n_1$};
+		\coordinate (O) at (0,0);
+		\draw[dashed] (0,-0.75) -- (0,1.55);
+		\node[anchor=west] at (0.12,1.18) {нормаль};
+		\draw[->, very thick, blue] (-2.3,1.35) -- (O) node[midway, above left] {$\vb{k}_{\text{пад}}$};
+		\draw[->, very thick, blue] (O) -- (2.35,1.35) node[midway, above right] {$\vb{k}_{\text{отр}}$};
+		\draw[->, very thick, blue] (O) -- (2.45,0) node[midway, below] {$\vb{k}'$};
+		\draw[->, very thick, red, dashed] (O) -- (0,-0.65) node[left] {$\vb{k}''$};
+		\foreach \x in {0.2,0.55,...,2.3} {
+			\draw[red!70, opacity=0.65] (\x,0) -- ++(0,-0.25);
+		}
+		\draw[red!70, decorate, decoration={snake, amplitude=1.4pt, segment length=8pt}] (0.15,-0.22) -- (2.35,-0.22);
+		\node[align=left, anchor=west] at (2.65,-0.45) {затухание перпендикулярно границе,\\распространение вдоль границы};
+		\node[above] at (1.15,1.86) {полное внутреннее отражение};
+	\end{tikzpicture}
+\end{figure}
+
+
+\subsection{Показатель преломления в конденсированных средах}
+
+В разреженных средах взаимодействие между диполями пренебрежимо мало. В конденсированных средах поле, действующее на молекулу, отличается от среднего макроскопического поля $\vb{E}$ на величину поля $\vb{E}'$, создаваемого окружающими диполями:
+\[ \vb{E}_{\text{лок}} = \vb{E} + \vb{E}' \]
+Используя модель Лоренца для сферической полости в диэлектрике, находим поле в центре полости:
+\[ \vb{E}' = \frac{\vb{P}}{3\varepsilon_0} \implies \vb{E}_{\text{лок}} = \vb{E} + \frac{\vb{P}}{3\varepsilon_0} \]
+
+Тогда индуцированный поляризационный отклик равен:
+\[ \vb{P} = N \vb{p} = N \alpha(\omega) \vb{E}_{\text{лок}} = N \alpha(\omega) \qty( \vb{E} + \frac{\vb{P}}{3\varepsilon_0} ) \]
+Решая это уравнение относительно $\vb{P}$, получаем:
+\[ \vb{P} = \frac{N \alpha(\omega)}{1 - \frac{N \alpha(\omega)}{3\varepsilon_0}} \vb{E} = \varepsilon_0 \chi \vb{E} \]
+Отсюда диэлектрическая восприимчивость среды равна:
+\[ \chi = \varepsilon - 1 = \frac{\frac{\alpha(\omega) N}{\varepsilon_0}}{1 - \frac{\alpha(\omega) N}{3\varepsilon_0}} \]
+Поскольку для немагнитных сред $\varepsilon = n^2$:
+\[ n^2 - 1 = \frac{\frac{\alpha(\omega) N}{\varepsilon_0}}{1 - \frac{\alpha(\omega) N}{3\varepsilon_0}} \]
+
+Решая это выражение относительно микроскопической поляризуемости $\alpha(\omega)$, приходим к фундаментальному соотношению:
+
+\begin{theorem}{Формула Клаузиуса-Моссотти}{thm:clausius_mossotti}
+	Связь между микроскопической поляризуемостью молекул $\alpha(\omega)$ и макроскопическим показателем преломления конденсированной среды $n$ выражается формулой:
+	\begin{equation}
+		\alpha(\omega) = \frac{3\varepsilon_0}{N} \cdot \frac{n^2 - 1}{n^2 + 2}
+	\end{equation}
+\end{theorem}
+
+Заменяя концентрацию $N = \frac{\rho}{m}$, получаем инвариантную величину, называемую удельной рефракцией:
+\[ r = \frac{1}{\rho} \cdot \frac{n^2 - 1}{n^2 + 2} = \text{inv} \]
+
+
+\section{\texorpdfstring{07.05 \quad Распространение сигнала в диспергирующей среде. Фазовая и групповая скорость}{07.05 Распространение сигнала в диспергирующей среде. Фазовая и групповая скорость}}
+
+При передаче информации мы всегда имеем дело со сложными немонохроматическими сигналами. Простейшей моделью такого сигнала является волновой пакет.
+
+\begin{definition}{Волновой пакет}{def:wave_packet}
+	Волновым пакетом называется суперпозиция монохроматических волн, частоты которых сосредоточены в узком интервале частот $\Delta \omega \ll \omega_0$:
+\end{definition}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, x=1.15cm, y=0.95cm]
+		\draw[->] (0,0) -- (6.4,0) node[right] {$z$};
+		\draw[->] (0,-1.55) -- (0,1.55) node[above] {$E$};
+		\draw[thick, blue, domain=0.45:5.95, samples=260] plot (\x, {1.15 * exp(-0.55*(\x-3.2)*(\x-3.2)) * cos(720*(\x-3.2))});
+		\draw[thick, red, dashed, domain=0.45:5.95, samples=120] plot (\x, {1.15 * exp(-0.55*(\x-3.2)*(\x-3.2))});
+		\draw[thick, red, dashed, domain=0.45:5.95, samples=120] plot (\x, {-1.15 * exp(-0.55*(\x-3.2)*(\x-3.2))});
+		\draw[<->] (2.35,-1.25) -- (4.05,-1.25) node[midway, below] {$\Delta z$};
+		\node[blue] at (4.85,0.72) {несущая};
+		\node[red] at (2.0,1.25) {огибающая};
+	\end{tikzpicture}
+\end{figure}
+
+Запишем аналитическое выражение для волнового пакета:
+\[ E(z, t) = \int_{\omega_0 - \frac{\Delta\omega}{2}}^{\omega_0 + \frac{\Delta\omega}{2}} E(\omega) e^{i(\omega t - k(\omega)z)} d\omega \]
+Разложим волновое число $k(\omega)$ в ряд Тейлора в окрестности центральной частоты $\omega_0$:
+\[ k(\omega) = k_0 + \qty(\pdv{k}{\omega})_{\omega_0} (\omega - \omega_0) + \dots \]
+Введем переменную $\xi = \omega - \omega_0$, тогда $d\xi = d\omega$. Пределы интегрирования изменятся от $-\Delta\omega/2$ до $\Delta\omega/2$:
+\begin{align*}
+	E(z, t) &= \int_{-\frac{\Delta\omega}{2}}^{\frac{\Delta\omega}{2}} E(\xi) \cdot \exp\qty{ i \qty[ (\omega_0 + \xi)t - \qty( k_0 + \qty(\pdv{k}{\omega})_{\omega_0} \xi ) z ] } d\xi \\
+	&= \exp\qty{ i(\omega_0 t - k_0 z) } \int_{-\frac{\Delta\omega}{2}}^{\frac{\Delta\omega}{2}} E(\xi) \cdot \exp\qty{ i \xi \qty[ t - \qty(\pdv{k}{\omega})_{\omega_0} z ] } d\xi
+\end{align*}
+
+Полученное выражение представляет собой плоскую несущую волну $\exp\qty{ i(\omega_0 t - k_0 z) }$, промодулированную медленно меняющейся огибающей, описываемой интегралом.
+\begin{enumerate}
+	\item Фазовая скорость определяет скорость перемещения фазы несущей волны:
+	\[ \omega_0 t - k_0 z = \text{const} \implies \omega_0 - k_0 \dv{z}{t} = 0 \implies v_{\text{ф}} = \frac{\omega}{k} \]
+	
+	\item Групповая скорость определяет скорость перемещения огибающей пакета (сигнала в целом):
+	\[ t - \qty(\pdv{k}{\omega})_{\omega_0} z = \text{const} \implies 1 - \qty(\pdv{k}{\omega})_{\omega_0} \dv{z}{t} = 0 \implies v_{\text{гр}} = \dv{\omega}{k} \]
+\end{enumerate}
+
+\begin{theorem}{Связь фазовой и групповой скоростей (Формула Рэлея)}{thm:rayleigh}
+	Связь между фазовой и групповой скоростями выражается соотношением:
+	\begin{equation}
+		v_{\text{гр}} = v_{\text{ф}} - \lambda \dv{v_{\text{ф}}}{\lambda}
+	\end{equation}
+\end{theorem}
+
+\begin{proofbox}
+	Используем связь $\omega = v_{\text{ф}} \cdot k$:
+	\[ v_{\text{гр}} = \dv{\omega}{k} = \dv{}{k} \qty( v_{\text{ф}} \cdot k ) = v_{\text{ф}} + k \dv{v_{\text{ф}}}{k} \]
+	Поскольку волновое число связано с длиной волны как $k = \frac{2\pi}{\lambda}$:
+	\[ dk = -\frac{2\pi}{\lambda^2} d\lambda \]
+	Тогда:
+	\[ k \dv{v_{\text{ф}}}{k} = \frac{2\pi}{\lambda} \cdot \frac{dv_{\text{ф}}}{-\frac{2\pi}{\lambda^2} d\lambda} = -\lambda \dv{v_{\text{ф}}}{\lambda} \]
+	Подставляя это в исходное выражение, получаем формулу Рэлея.
+\end{proofbox}
+
+В зависимости от знака производной $\dv{v_{\text{ф}}}{\lambda}$ различают два случая:
+\begin{itemize}
+	\item \textbf{Нормальная дисперсия} ($\dv{v_{\text{ф}}}{\lambda} > 0$): групповая скорость меньше фазовой ($v_{\text{гр}} < v_{\text{ф}}$).
+	\item \textbf{Аномальная дисперсия} ($\dv{v_{\text{ф}}}{\lambda} < 0$): групповая скорость больше фазовой ($v_{\text{гр}} > v_{\text{ф}}$).
+\end{itemize}
+
+
+\section{Распространение света в мутных средах. Рэлеевское рассеяние}
+
+\begin{definition}{Мутная среда}{def:muddy_medium}
+	Мутной средой называется оптически неоднородная среда, содержащая большое количество мелких посторонних частиц, размеры которых малы по сравнению с длиной волны ($a \ll \lambda$).
+\end{definition}
+
+В оптически идеально однородной среде рассеяние света отсутствует. Рассеяние возникает только на флуктуациях или инородных частицах, где показатель преломления отличается от фонового ($n \neq n_{\text{ср}}$).
+
+Рассмотрим сферическую частицу радиуса $a_0 \ll \lambda$. Под действием поля падающей волны в ней индуцируется дипольный момент. Найдем этот момент, используя лоренцево локальное поле:
+\[ \vb{E}_{\text{лок}} = \vb{E} + \vb{E}' = \vb{E} - \frac{\vb{P}}{3\varepsilon_0} \]
+Используя связь $\vb{P} = \varepsilon_0 \chi \vb{E}_{\text{лок}}$, получаем:
+\[ \vb{P} = 3\varepsilon_0 \frac{\varepsilon - 1}{\varepsilon + 2} \vb{E} \]
+Дипольный момент частицы объемом $V = \frac{4}{3}\pi a_0^3$ равен:
+\[ \vb{p} = \vb{P} \cdot V = 4\pi\varepsilon_0 a_0^3 \frac{n^2 - 1}{n^2 + 2} \vb{E} \]
+
+Осциллирующий диполь излучает вторичные сферические волны. Поле излучения диполя в волновой зоне на расстоянии $R$ равно:
+\[ \vb{E}_{\text{расс}} = \frac{1}{4\pi\varepsilon_0} \cdot \frac{\ddot{\vb{p}}\qty(t - \frac{R}{c})}{c^2 R} \sin\theta = -\frac{\omega^2 (n^2 - 1)}{c^2 R (n^2 + 2)} a_0^3 \vb{E}_0 e^{i(kz - \omega t)} \sin\theta \]
+
+Интенсивность рассеянного света пропорциональна среднему квадрату поля:
+\[ I \sim E^2 \sim \frac{\omega^4 a_0^6}{c^4 R^2} \qty( \frac{n^2 - 1}{n^2 + 2} )^2 E_0^2 \sin^2\theta \]
+Выражая частоту через длину волны $\omega = \frac{2\pi c}{\lambda}$, получаем закон Рэлея:
+\begin{equation}
+	I_{\text{расс}} \sim I_0 \cdot \frac{a_0^6}{\lambda^4 R^2} \qty( \frac{n^2 - 1}{n^2 + 2} )^2 \sin^2\theta
+\end{equation}
+
+Для естественного (неполяризованного) падающего света интенсивность рассеянного света находится усреднением по углам поляризации:
+\begin{equation}
+	I_{\text{ест}} = I_0 \cdot \frac{8\pi^4 a_0^6}{\lambda^4 R^2} \qty( \frac{n^2 - 1}{n^2 + 2} )^2 \frac{1 + \cos^2\varphi}{2}
+\end{equation}
+где $\varphi = 90^\circ - \theta$ --- угол рассеяния.
+
+Из закона $I \sim 1/\lambda^4$ вытекают важнейшие следствия:
+\begin{enumerate}
+	\item \textbf{Голубой цвет неба}: фиолетовый и синий участки спектра рассеиваются атмосферой значительно сильнее красного.
+	\item \textbf{Красный цвет солнца на закате}: проходящий без рассеяния свет обеднен синей компонентой и смещается в красную область.
+\end{enumerate}
+
+
+\section{Кристаллооптика}
+
+В анизотропных средах (кристаллах) диэлектрические свойства зависят от направления. Связь между векторами $\vb{D}$ и $\vb{E}$ выражается через тензор диэлектрической проницаемости $\hat{\varepsilon}$:
+\[ D_i = \varepsilon_0 \sum_{j} \varepsilon_{ij} E_j \]
+В главных осях тензор $\hat{\varepsilon}$ диагонален:
+\[ \hat{\varepsilon} = \begin{pmatrix} \varepsilon_{xx} & 0 & 0 \\ 0 & \varepsilon_{yy} & 0 \\ 0 & 0 & \varepsilon_{zz} \end{pmatrix} \]
+
+Классификация кристаллов по оптическим свойствам:
+\begin{enumerate}
+	\item $\varepsilon_{xx} = \varepsilon_{yy} = \varepsilon_{zz}$ --- \textbf{изотропная среда}.
+	\item $\varepsilon_{xx} = \varepsilon_{yy} \neq \varepsilon_{zz}$ --- \textbf{одноосный кристалл}. Обозначают $\varepsilon_{xx} = \varepsilon_{\perp}$, $\varepsilon_{zz} = \varepsilon_{\parallel}$.
+	\item $\varepsilon_{xx} \neq \varepsilon_{yy} \neq \varepsilon_{zz}$ --- \textbf{двуосный кристалл}.
+\end{enumerate}
+
+Из уравнений Максвелла для плоских волн в анизотропной среде имеем:
+\[ \vb{k} \cdot \vb{D} = 0 \implies \vb{k} \perp \vb{D} \]
+\[ [\vb{k}, \vb{E}] = \omega \vb{B} \implies \vb{B} \perp \vb{E}, \vb{k} \]
+\[ [\vb{k}, \vb{B}] = -\omega \vb{D} \implies \vb{D} \perp \vb{B}, \vb{k} \]
+Вектор Пойнтинга $\vb{S} = \frac{1}{\mu_0} [\vb{E}, \vb{B}]$ перпендикулярен $\vb{E}$ и $\vb{B}$. Таким образом, направления волновой нормали $\vec{e}_k = \vb{k}/k$ и луча $\vec{e}_s = \vb{S}/S$ в кристалле вообще говоря не совпадают.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=Stealth, scale=1.3]
+		\draw[->, thick] (0,0) -- (0,2.5) node[above] {$\vb{D}$};
+		\draw[->, thick, red] (0,0) -- (0.8,2.2) node[above right] {$\vb{E}$};
+		\draw[->, thick, blue] (0,0) -- (3,0) node[right] {$\vb{k}$};
+		\draw[->, thick, green!60!black] (0,0) -- (2.5,-0.9) node[below right] {$\vb{S}$};
+		
+		\draw (0,0.5) arc (90:70:0.5);
+		\node at (0.2,0.7) {$\alpha$};
+		
+		\draw (1,0) arc (0:-20:1);
+		\node at (1.1,-0.2) {$\alpha$};
+		
+		\node at (-0.3,1.2) {$\vec{e}_k$};
+		\node at (1.8,-0.8) {$\vec{e}_s$};
+	\end{tikzpicture}
+\end{figure}
+
+Связь между лучевой скоростью $v_s$ и фазовой скоростью $v_{\text{ф}}$ имеет вид: $v_{\text{ф}} = v_s \cos\alpha$.
+
+\begin{theorem}{Основное уравнение кристаллооптики}{thm:main_crystal}
+	Для любого направления распространения плоской волны в анизотропной среде выполняется соотношение:
+	\begin{equation}
+		\frac{1}{\varepsilon_0} \qty( \frac{v_{\text{ф}}}{c} )^2 \vb{D} = \vb{E} - \vec{e}_k \qty( \vec{e}_k, \vb{E} )
+	\end{equation}
+\end{theorem}
+
+\subsection{Распространение волн в одноосных кристаллах}
+
+В одноосном кристалле с диэлектрической проницаемостью $\hat{\varepsilon} = \text{diag}(\varepsilon_{\perp}, \varepsilon_{\perp}, \varepsilon_{\parallel})$ для любого волнового вектора $\vb{k}$ существуют две независимые моды колебаний:
+\begin{enumerate}
+	\item \textbf{Обыкновенная волна} ($o$-волна): вектор поляризации перпендикулярен главной плоскости (содержащей ось $z$ и вектор $\vb{k}$). Скорость этой волны не зависит от направления распространения:
+	\[ v_{\text{ф}}^{(o)} = \frac{c}{\sqrt{\varepsilon_{\perp}}} = \text{const} \]
+	
+	\item \textbf{Необыкновенная волна} ($e$-волна): вектор поляризации лежит в главной плоскости. Ее скорость зависит от угла $\theta$ между вектором $\vb{k}$ и оптической осью кристаллической решетки $z$:
+	\begin{equation}
+		\qty( \frac{v_{\text{ф}}^{(e)}}{c} )^2 = \frac{\cos^2\theta}{\varepsilon_{\perp}} + \frac{\sin^2\theta}{\varepsilon_{\parallel}}
+	\end{equation}
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=Stealth, scale=1.1]
+		\draw[thick] (0,0) circle (1.5);
+		\draw[thick, blue] (0,0) ellipse (2.2 and 1.5);
+		\draw[->] (0,-2) -- (0,2) node[above] {$z$ (оптическая ось)};
+		\draw[->] (-3,0) -- (3,0) node[right] {$y$};
+		\draw[->, thick, red] (0,0) -- (40:1.8) node[above right] {$\vb{k}$};
+		\draw (0,0.5) arc (90:40:0.5);
+		\node at (0.3,0.7) {$\theta$};
+		\node[below] at (1,1.1) {$v^{(o)}$};
+		\node[above] at (1.8,0.7) {$v^{(e)}$};
+	\end{tikzpicture}
+\end{figure}
+
+
+\subsection{Уравнение Френеля для лучевых скоростей}
+
+Запишем проекции основного уравнения кристаллооптики на главные оси тензора диэлектрической проницаемости:
+\[ D_i = -\varepsilon_0 \frac{e_{k, i} \qty(\vec{e}_k, \vb{E})}{\qty(\frac{v_{\text{ф}}}{c})^2 - \frac{1}{\varepsilon_{ii}}} \]
+Поскольку вектор $\vb{D}$ поперечен ($\vb{D} \cdot \vec{e}_k = 0$):
+\[ \sum_{i} D_i e_{k, i} = 0 \implies \sum_{i} \frac{e_{k, i}^2}{\qty(\frac{v_{\text{ф}}}{c})^2 - \frac{1}{\varepsilon_{ii}}} = 0 \]
+
+Распишем это выражение в явном виде:
+\begin{equation}
+	\frac{e_{k, x}^2}{\qty(\frac{v_{\text{ф}}}{c})^2 - \frac{1}{\varepsilon_{xx}}} + \frac{e_{k, y}^2}{\qty(\frac{v_{\text{ф}}}{c})^2 - \frac{1}{\varepsilon_{yy}}} + \frac{e_{k, z}^2}{\qty(\frac{v_{\text{ф}}}{c})^2 - \frac{1}{\varepsilon_{zz}}} = 0
+\end{equation}
+
+
+\section{Искусственная анизотропия}
+
+В обычных условиях анизотропия отсутствует в газах, жидкостях и аморфных телах. Однако при наложении внешних полей (электрического, магнитного или механических напряжений) среда может стать оптически анизотропной.
+
+\subsection{Эффект Фарадея}
+
+Эффект Фарадея заключается во вращении плоскости поляризации линейно поляризованной световой волны при ее распространении в веществе вдоль постоянного магнитного поля $\vb{B}_0$.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, x=1.05cm, y=1.05cm]
+		\draw[->, very thick, red] (-1.5,0) -- (5.4,0) node[right] {$z$};
+		\draw[thick, fill=blue!5] (0,-0.55) rectangle (3.4,0.55);
+		\foreach \x in {0.15,0.45,...,3.1} {
+			\draw[thick, blue] (\x,-0.55) to[out=80,in=260] (\x+0.18,0.55);
+		}
+		\draw[->, thick, blue!70!black] (0.35,0.9) -- (3.05,0.9) node[midway, above] {$\vb{B}_0$};
+		\node[below] at (1.7,-0.65) {вещество};
+		
+		\draw[dashed] (-1.05,-1.05) -- (-1.05,1.05);
+		\draw[very thick, red] (-1.3,-0.75) -- (-0.8,0.75);
+		\node[above] at (-1.05,1.05) {$\vb{E}_{\text{вх}}$};
+		
+		\draw[dashed] (4.25,-1.05) -- (4.25,1.05);
+		\draw[very thick, red] (3.88,-0.62) -- (4.62,0.62);
+		\draw[->, thick] (4.45,0.18) arc (18:55:0.55);
+		\node at (4.75,0.68) {$\theta$};
+		\node[above] at (4.25,1.05) {$\vb{E}_{\text{вых}}$};
+	\end{tikzpicture}
+\end{figure}
+
+Линейно поляризованную волну можно представить как суперпозицию двух циркулярно поляризованных волн с противоположными направлениями вращения (правой $\vb{E}_+$ и левой $\vb{E}_-$):
+\[ \vb{E} = \vb{E}_+ + \vb{E}_- \]
+Вдоль магнитного поля показатели преломления для этих волн различаются ($n_+ \neq n_-$). Разность фаз после прохождения пути $L$ равна:
+\[ \Delta\varphi = (k_+ - k_-)L = \frac{\omega L}{c} (n_+ - n_-) \]
+
+Угол поворота плоскости поляризации $\theta$ линейно зависит от напряженности магнитного поля:
+\begin{definition}{Закон Верде}{def:verdet}
+	Угол поворота плоскости поляризации в эффекте Фарадея определяется выражением:
+	\begin{equation}
+		\theta = V \cdot B_0 \cdot L
+	\end{equation}
+	где $V$ --- постоянная Верде, зависящая от свойств вещества и длины волны.
+\end{definition}
+
+
+\section{Естественная оптическая активность}
+
+Естественной оптической активностью (или естественным вращением плоскости поляризации) называют способность некоторых веществ вращать плоскость поляризации проходящего через них света в отсутствие внешних полей.
+
+Оптическая активность обусловлена пространственной дисперсией --- зависимостью поляризации в данной точке от изменения поля в ее окрестности. Для асимметричных молекул (например, имеющих форму спирали) отклик содержит малую вихревую добавку:
+\begin{equation}
+	\vb{p} = \alpha \vb{E} + \Gamma \rot \vb{E}
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, x=1.08cm, y=1.08cm]
+		\draw[->, black!65] (-0.25,0) -- (5.05,0) node[right, black!70] {ось молекулы};
+		\draw[thick, blue!45, domain=0:720, samples=180] plot ({\x/160}, {0.42*cos(\x)});
+		\draw[very thick, blue!85, domain=0:720, samples=180] plot ({\x/160}, {0.42*sin(\x)});
+		\foreach \x in {0,90,...,720} {
+			\fill[blue!70] ({\x/160}, {0.42*sin(\x)}) circle (1.2pt);
+		}
+		\draw[->, very thick, red] (4.75,0.25) arc (35:300:0.32);
+		\node[above] at (2.25,0.82) {асимметричная молекула};
+	\end{tikzpicture}
+\end{figure}
+
+В макроскопическом масштабе это приводит к связи:
+\[ \vb{D} = \varepsilon \varepsilon_0 \vb{E} + g \rot \vb{E} \]
+Подставляя это выражение в волновое уравнение, находим, что волны с правой и левой круговой поляризацией распространяются с разными скоростями ($n_+ \neq n_-$), что приводит к постепенному повороту плоскости поляризации линейно поляризованной волны.

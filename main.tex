@@ -10,7 +10,7 @@
 \usepackage{indentfirst}
 
 % Microtype с отключенным расширением шрифтов (чтобы не было ошибки scalable fonts)
-\usepackage[expansion=false]{microtype} 
+\usepackage[expansion=false, nopatch=footnote]{microtype} 
 
 % ==========================================
 % 2. МАТЕМАТИКА И ФИЗИКА
@@ -21,6 +21,10 @@
 \usepackage{physics}   
 \usepackage{cancel}    
 
+% Документ использует \qty из physics; siunitx нужен для \si и похожих команд.
+\ExplSyntaxOn
+\msg_redirect_name:nnn { siunitx } { physics-pkg } { none }
+\ExplSyntaxOff
 \AtBeginDocument{\let\qty\quantity}
 
 % Сквозная нумерация формул
@@ -39,6 +43,14 @@
 \usetikzlibrary{calc, patterns, arrows.meta, positioning, shapes.geometric, shadows}
 \usetikzlibrary{decorations.pathmorphing, decorations.markings}
 \usetikzlibrary{fit, backgrounds}
+\tikzset{
+	physics figure/.style={
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small}
+	}
+}
 
 % Электрические схемы
 \usepackage[european, straightvoltages]{circuitikz}
@@ -108,11 +120,11 @@
 \renewcommand{\sectionmark}[1]{\markboth{#1}{}} 
 
 \newcommand{\subjectName}{Общая Физика} 
-\setlength{\headheight}{25.22153pt}
+\setlength{\headheight}{30pt}
 
 % ВЕРХНИЙ КОЛОНТИТУЛ
 \lhead{\small \textsc{\subjectName}} % Слева название предмета
-\rhead{\small \nouppercase{\leftmark}} % Справа название лекции (без лишних номеров страниц)
+\rhead{\parbox[b]{0.74\textwidth}{\raggedleft\footnotesize\nouppercase{\leftmark}}} % Справа название лекции
 
 % НИЖНИЙ КОЛОНТИТУЛ
 \cfoot{\thepage} % Номер страницы только тут
@@ -135,6 +147,13 @@
 	urlcolor=cyan,
 	pdftitle={Конспект по физике},
 }
+\pdfstringdefDisableCommands{
+	\def\quad{ }
+	\def\vb#1{#1}
+	\def\vec#1{#1}
+	\def\parallel{parallel}
+	\def\perp{perp}
+}
 
 % ==========================================
 % 7. ЛОГИКА ИМПОРТА (Макрос)
@@ -152,6 +171,7 @@
 % НАЧАЛО ДОКУМЕНТА
 % ==========================================
 \begin{document}
+	\hypersetup{pageanchor=false}
 	
 	% --- Титульный лист ---
 	\begin{titlepage}
@@ -171,9 +191,10 @@
 		
 		\vspace{2cm}
 	\end{titlepage}
+	\clearpage
+	\hypersetup{pageanchor=true}
 	
 	% --- Оглавление ---
-	\newpage
 	\tableofcontents
 	\newpage
 	
