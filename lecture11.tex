@@ -1,0 +1,741 @@
+\section{\texorpdfstring{21.05 \quad Тепловое излучение}{21.05 Тепловое излучение}}
+
+Тепловое излучение происходит на всех частотах. Температура тела определяет, какой именно спектр будет исходить от нагретого тела.
+
+\subsection{Основные свойства теплового излучения}
+
+\begin{enumerate}
+	\item \textbf{Сплошной спектр:} в отличие от линейчатых спектров газов, тепловое излучение нагретых твердых и жидких тел содержит все возможные частоты.
+	\item \textbf{Термодинамическое равновесие:} тепловое излучение --- это единственный вид излучения, который может находиться в состоянии термодинамического равновесия с окружающими телами.
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		% Левая полость (не в равновесии)
+		\draw[thick] (0,0) circle (1.2);
+		\draw[thick, fill=gray!20] (-0.6, 0.4) to[out=30, in=150] (-0.2, 0.5) to[out=-30, in=80] (-0.3, -0.1) to[out=200, in=-40] (-0.6, 0.4);
+		\node at (-0.45, 0.25) {$T_1$};
+		
+		\draw[thick, fill=gray!20] (0.5, 0.5) to[out=20, in=120] (0.8, 0.4) to[out=-60, in=30] (0.7, -0.1) to[out=180, in=-100] (0.5, 0.5);
+		\node at (0.65, 0.25) {$T_2$};
+		
+		\draw[thick, fill=gray!20] (-0.1, -0.7) to[out=10, in=100] (0.3, -0.6) to[out=-40, in=40] (0.2, -1.0) to[out=160, in=-100] (-0.1, -0.7);
+		\node at (0.1, -0.8) {$T_3$};
+		
+		% Стрелочки теплообмена
+		\draw[<->, thick, dashed] (-0.2, 0.2) -- (0.4, 0.2);
+		\draw[<->, thick, dashed] (-0.3, -0.1) -- (0.0, -0.5);
+		\draw[<->, thick, dashed] (0.5, -0.1) -- (0.2, -0.5);
+		
+		% Стрелка перехода
+		\draw[->, ultra thick] (1.6, 0) -- (2.4, 0);
+		
+		% Правая полость (в равновесии)
+		\begin{scope}[shift={(4,0)}]
+			\draw[thick] (0,0) circle (1.2);
+			\draw[thick, fill=gray!30] (-0.6, 0.4) to[out=30, in=150] (-0.2, 0.5) to[out=-30, in=80] (-0.3, -0.1) to[out=200, in=-40] (-0.6, 0.4);
+			\node at (-0.45, 0.25) {$T_1$};
+			
+			\draw[thick, fill=gray!30] (0.5, 0.5) to[out=20, in=120] (0.8, 0.4) to[out=-60, in=30] (0.7, -0.1) to[out=180, in=-100] (0.5, 0.5);
+			\node at (0.65, 0.25) {$T_1$};
+			
+			\draw[thick, fill=gray!30] (-0.1, -0.7) to[out=10, in=100] (0.3, -0.6) to[out=-40, in=40] (0.2, -1.0) to[out=160, in=-100] (-0.1, -0.7);
+			\node at (0.1, -0.8) {$T_1$};
+			
+			\draw[<->, thick, dashed] (-0.2, 0.2) -- (0.4, 0.2);
+			\draw[<->, thick, dashed] (-0.3, -0.1) -- (0.0, -0.5);
+			\draw[<->, thick, dashed] (0.5, -0.1) -- (0.2, -0.5);
+		\end{scope}
+		
+		\node[right, align=left] at (5.5, 0) {Тела приходят в равновесие\\ и продолжают излучать\\ с одинаковой температурой $T_1$.};
+	\end{tikzpicture}
+\end{figure}
+
+Пусть $W$ --- полная энергия излучения (которая в изолированной системе остается неизменной величиной). Так как излучение происходит с поверхности тела, введем энергетические характеристики:
+
+\begin{definition}{Энергетическая светимость}{def:energy_luminosity}
+	\textbf{Энергетическая светимость (интегральная излучательная способность)} $R$ --- это энергия излучения, испускаемая за единицу времени с единицы площади поверхности во всем диапазоне частот:
+	\begin{equation}
+		R = \frac{dW}{dS dt}
+	\end{equation}
+\end{definition}
+
+\begin{itemize}
+	\item \textbf{Мощность излучения:} $P = \frac{dW}{dt}$ --- энергия, передаваемая излучением за единицу времени.
+	\item \textbf{Объемная плотность энергии излучения:} $w = \frac{dW}{dV}$.
+\end{itemize}
+
+Выведем связь между энергетической светимостью $R$ и объемной плотностью энергии $w$. Рассмотрим излучение, падающее на элементарную площадку $dS$ из полусферы.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.3]
+		% Полусфера
+		\draw[thick, gray!50] (2,0) arc (0:180:2);
+		\draw[thick] (-2,0) -- (2,0);
+		
+		% Площадка dS
+		\fill[blue!20] (-0.3,0) -- (0.3,0) -- (0.1,-0.2) -- (-0.5,-0.2) -- cycle;
+		\draw[thick] (-0.3,0) -- (0.3,0) -- (0.1,-0.2) -- (-0.5,-0.2) -- cycle;
+		\node[below] at (-0.1,-0.2) {$dS$};
+		
+		% Телесный угол d\Omega
+		\draw[dashed] (0,0) -- (1.2, 1.6);
+		\draw[dashed] (0,0) -- (1.5, 1.32);
+		\draw[thick, fill=red!20, opacity=0.7] (1.2, 1.6) to[out=-20, in=110] (1.5, 1.32) to[out=210, in=-30] (1.2, 1.6);
+		
+		% Вектор r и углы
+		\draw[->, ultra thick, blue] (0,0) -- (1.35, 1.46) node[midway, left] {$\vec{r}$};
+		\draw[thick] (0,0) -- (0, 1.8) node[above] {нормаль};
+		\draw (0, 0.6) arc (90:48:0.6);
+		\node at (0.25, 0.8) {$\theta$};
+		
+		\node at (1.7, 1.6) {$d\Omega$};
+		
+		\node[right, align=left] at (2.5, 1.0) {
+			$dV = c\, dt\, dS \cos\theta$ \\
+			$d\Omega = \sin\theta\, d\theta\, d\varphi$ \\
+			$R = \frac{c w}{4}$
+		};
+	\end{tikzpicture}
+\end{figure}
+
+Объемная плотность энергии, приходящаяся на телесный угол $d\Omega$, составляет $dw = w \frac{d\Omega}{4\pi}$. За время $dt$ площадки $dS$ достигает излучение из объема $dV = c\, dt\, dS \cos\theta$. Тогда энергия, падающая на площадку $dS$, равна:
+\begin{equation}
+	dW = c\, dS\, dt \cos\theta \cdot w \frac{d\Omega}{4\pi}
+\end{equation}
+Интегрируя по полусфере ($\varphi \in [0, 2\pi]$, $\theta \in [0, \pi/2]$):
+\begin{equation}
+	W = \frac{c w}{4\pi} dS\, dt \int_{0}^{2\pi} d\varphi \int_{0}^{\pi/2} \sin\theta \cos\theta\, d\theta = \frac{c w}{4\pi} dS\, dt \cdot 2\pi \cdot \frac{1}{2} = \frac{c w}{4} dS\, dt
+\end{equation}
+Следовательно, получаем связь:
+\begin{equation}
+	R = \frac{dW}{dS dt} = \frac{c w}{4}
+\end{equation}
+
+\subsection{Спектральная плотность светимости}
+
+Свечение распределено по длинам волн $\lambda$ (или частотам $\omega$):
+\begin{equation}
+	r_\omega = \frac{dR}{d\omega}, \qquad r_\lambda = \frac{dR}{d\lambda}, \qquad R = \int_{0}^{\infty} r_\omega\, d\omega
+\end{equation}
+Здесь $r_\omega$ --- спектральная плотность энергетической светимости (испускательная способность). Свяжем $r_\lambda$ и $r_\omega$:
+\begin{equation}
+	r_\lambda = \frac{dR}{d\lambda} = \frac{dR}{d\omega} \left| \dv{\omega}{\lambda} \right| = r_\omega \left| \dv{\omega}{\lambda} \right|
+\end{equation}
+Используя связь $\omega = \frac{2\pi c}{\lambda}$, находим производную:
+\begin{equation}
+	\left| \dv{\omega}{\lambda} \right| = \frac{2\pi c}{\lambda^2} \implies r_\lambda = r_\omega \cdot \frac{2\pi c}{\lambda^2}
+\end{equation}
+
+\subsection{Закон Кирхгофа}
+
+Введем характеристику поглощения энергии телом:
+\begin{definition}{Поглощательная способность}{def:absorbing_ability}
+	\textbf{Поглощательная способность (коэффициент поглощения)} $a_\omega(T)$ --- это отношение поглощенного спектрального потока энергии к падающему спектральному потоку:
+	\begin{equation}
+		a_\omega(T) = \frac{d\Phi_{\text{погл}}}{d\Phi_{\text{пад}}}, \qquad 0 \le a_\omega(T) \le 1
+	\end{equation}
+	где $d\Phi_{\text{погл}} = \frac{dW_{\text{погл}}}{dS dt d\omega}$ и $d\Phi_{\text{пад}} = \frac{dW_{\text{пад}}}{dS dt d\omega}$.
+\end{definition}
+
+Рассмотрим термодинамически равновесную систему из нескольких тел внутри замкнутой полости. 
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\begin{tcolorbox}[colback=green!5, colframe=green!60!black, title=Тело 1]
+			На тело падает спектральный поток $\Phi_{\text{пад}}$. Поглощенная часть составляет $a_\omega \Phi_{\text{пад}}$, испускаемая --- $r_\omega$.
+			
+			В силу теплового равновесия при $T = \text{const}$:
+			\begin{equation*}
+				a_\omega \Phi_{\text{пад}} = r_\omega \implies \Phi_{\text{пад}} = \frac{r_\omega}{a_\omega}
+			\end{equation*}
+		\end{tcolorbox}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\begin{tcolorbox}[colback=green!5, colframe=green!60!black, title=Тело 2]
+			Для второго тела аналогично:
+			\begin{equation*}
+				\Phi_{\text{пад}} = \frac{r_{\omega_1}}{a_{\omega_1}} = \frac{r_{\omega_2}}{a_{\omega_2}} = \text{const}
+			\end{equation*}
+			Отношение испускательной способности к поглощательной одинаково для всех тел системы.
+		\end{tcolorbox}
+	\end{minipage}
+\end{figure}
+
+Если мы найдем (или смоделируем) тело, у которого $a_\omega = 1$ на всех частотах (абсолютно черное тело), то его испускательная способность $r_\omega^*$ будет равна падающему равновесному потоку:
+\begin{equation}
+	\frac{r_\omega}{a_\omega} = r_\omega^* = f(\omega, T)
+\end{equation}
+
+\begin{theorem}{Закон Кирхгофа}{thm:kirchhoff}
+	Отношение испускательной способности любого тела к его поглощательной способности одинаково для всех тел при данной температуре и равно испускательной способности абсолютно черного тела $r_\omega^*(T)$ при той же температуре:
+	\begin{equation}
+		\frac{r_\omega(T)}{a_\omega(T)} = r_\omega^*(T)
+	\end{equation}
+\end{theorem}
+
+
+\section{Модель абсолютно черного тела}
+
+\begin{definition}{Абсолютно черное тело (АЧТ)}{def:black_body}
+	\textbf{Абсолютно черным телом} называется тело, которое при любой температуре полностью поглощает все падающее на него излучение любой частоты ($a_\omega = 1$).
+\end{definition}
+
+Если поглощательная способность лежит в пределах $0 < a_\omega < 1$ и не зависит от частоты, то такое тело называется \textbf{серым телом}.
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}[physics figure, scale=1.3]
+			\draw[->] (0,0) -- (3,0) node[right] {$\omega$};
+			\draw[->] (0,0) -- (0,2) node[above] {$r_\omega^*$};
+			\draw[thick, blue, samples=100, domain=0:2.7] plot (\x, {1.8 * exp(-(\x-1.3)^2) * \x});
+			\node[below] at (1.3, 0) {сплошной спектр};
+		\end{tikzpicture}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}[physics figure, scale=1.1]
+			% Полость АЧТ
+			\draw[thick, fill=gray!10] (0,0) circle (1.5);
+			% Дырка
+			\fill[white] (1.35, 0.65) circle (0.15);
+			\draw[thick, white] (1.3, 0.5) -- (1.5, 0.8);
+			% Стенки в разрезе
+			\draw[thick] (1.33, 0.7) to[out=120, in=60] (-1.33, 0.7) to[out=240, in=300] (1.33, -0.7);
+			
+			% Лучи внутри
+			\draw[->, red, thick] (2.2, 1.1) -- (1.38, 0.69);
+			\draw[->, red, thick] (1.38, 0.69) -- (-0.8, -1.1);
+			\draw[->, red, thick] (-0.8, -1.1) -- (-1.4, 0.4);
+			\draw[->, red, thick] (-1.4, 0.4) -- (0.5, 1.4);
+			\draw[->, red, thick] (0.5, 1.4) -- (1.1, -0.9);
+			\draw[red, dashed] (1.1, -0.9) -- (-0.2, 0.2);
+			
+			\node[align=center] at (0,-1.8) {Модель АЧТ с полостью};
+		\end{tikzpicture}
+	\end{minipage}
+\end{figure}
+
+Практической моделью абсолютно черного тела является замкнутая полость с небольшим отверстием. Луч света, попавший внутрь такой полости, претерпевает многократные отражения от внутренних зеркальных стенок. При каждом отражении часть энергии поглощается, и в результате практически весь падающий свет остается внутри полости. 
+
+Примерами тел, близких по свойствам к АЧТ, являются: Солнце, сажа, реликтовое излучение Вселенной, а также искусственный ультрачерный материал \textit{Vantablack}.
+
+
+\section{Эмпирические законы излучения черного тела}
+
+\subsection{I. Закон смещения Вина}
+
+При увеличении температуры максимум спектральной испускательной способности АЧТ сдвигается в сторону более высоких частот (коротких длин волн).
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		\draw[->] (0,0) -- (5,0) node[right] {$\omega$};
+		\draw[->] (0,0) -- (0,3.5) node[above] {$r_\omega^*$};
+		
+		\draw[thick, blue, samples=100, domain=0:4.5] plot (\x, {0.6 * exp(-1.5*(\x-1.2)^2) * \x}) node[right] {$T_1$};
+		\draw[thick, blue!80!black, samples=100, domain=0:4.5] plot (\x, {1.3 * exp(-1.2*(\x-1.8)^2) * \x}) node[right] {$T_2 > T_1$};
+		\draw[thick, blue!50!black, samples=100, domain=0:4.5] plot (\x, {2.4 * exp(-0.9*(\x-2.5)^2) * \x}) node[right] {$T_3 > T_2$};
+		
+		\draw[dashed] (1.2,0) -- (1.2, 0.72);
+		\draw[dashed] (1.8,0) -- (1.8, 2.34);
+		\draw[dashed] (2.5,0) -- (2.5, 3.4);
+		
+		\node[below] at (1.2,0) {$\omega_{m_1}$};
+		\node[below] at (1.8,0) {$\omega_{m_2}$};
+		\node[below] at (2.5,0) {$\omega_{m_3}$};
+	\end{tikzpicture}
+\end{figure}
+
+\begin{theorem}{Закон смещения Вина}{thm:wien}
+	Частота $\omega_{\max}$, соответствующая максимальному значению спектральной испускательной способности абсолютно черного тела, прямо пропорциональна его термодинамической температуре $T$:
+	\begin{equation}
+		\frac{\omega_{\max}}{T} = \text{const} \qquad \Longleftrightarrow \qquad \lambda_{\max} \cdot T = b
+	\end{equation}
+	где $b \approx 2{,}9 \cdot 10^{-3} \ \si{\meter\kelvin}$ --- постоянная Вина.
+\end{theorem}
+
+\subsection{II. Закон Стефана-Больцмана}
+
+\begin{theorem}{Закон Стефана-Больцмана}{thm:stefan_boltzmann}
+	Интегральная энергетическая светимость $R^*$ абсолютно черного тела пропорциональна четвертой степени его термодинамической температуры:
+	\begin{equation}
+		R^* = \int_{0}^{\infty} r_\omega^*\, d\omega = \sigma T^4
+	\end{equation}
+	где $\sigma \approx 5{,}67 \cdot 10^{-8} \ \si{\watt\per\square\meter\per\kelvin\tothe{4}}$ --- постоянная Стефана-Больцмана.
+\end{theorem}
+
+
+\section{Классическая теория теплового излучения. Ультрафиолетовая катастрофа}
+
+Попытаемся вывести вид функции $r_\omega^*(T)$ классическими методами. Представим излучение в замкнутой кубической полости со стороной $l$ в виде системы трехмерных стоячих волн (мод колебаний поля).
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		% Кубическая полость
+		\draw[thick] (0,0) rectangle (2,2);
+		\draw[dashed] (0,0) -- (0.6,0.6) -- (2.6,0.6) -- (2,0) -- cycle;
+		\draw[dashed] (0.6,0.6) -- (0.6,2.6) -- (2.6,2.6) -- (2.6,0.6) -- cycle;
+		\draw[thick] (0,2) -- (0.6,2.6) -- (2.6,2.6) -- (2,2) -- cycle;
+		
+		\node[left] at (0,1) {$l$};
+		\node[below] at (1,0) {$l$};
+		
+		% Стоячая волна
+		\begin{scope}[shift={(4,0.5)}]
+			\draw[thick] (0,-0.5) -- (0,1.5);
+			\draw[thick] (2,-0.5) -- (2,1.5);
+			\draw[blue, thick, samples=100, domain=0:2] plot (\x, {0.5 * sin(\x * 180)});
+			\draw[blue, dashed, samples=100, domain=0:2] plot (\x, {-0.5 * sin(\x * 180)});
+			\draw[blue, thick, samples=100, domain=0:2] plot (\x, {0.5 * sin(\x * 180 * 2) + 0.8});
+			\draw[blue, dashed, samples=100, domain=0:2] plot (\x, {-0.5 * sin(\x * 180 * 2) + 0.8});
+			\draw[<->] (0, -0.3) -- (2, -0.3) node[midway, below] {$l = m \frac{\lambda}{2}$};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+Если волна направлена произвольно под углами $\alpha_x, \alpha_y, \alpha_z$ к ребрам куба, условие существования трехмерной стоячей волны имеет вид:
+\begin{equation}
+	\begin{cases}
+		l \cos\alpha_x = m_x \frac{\lambda}{2} \\
+		l \cos\alpha_y = m_y \frac{\lambda}{2} \\
+		l \cos\alpha_z = m_z \frac{\lambda}{2}
+	\end{cases}
+	\qquad m_x, m_y, m_z \in \mathbb{Z}^+
+\end{equation}
+Возводя уравнения в квадрат и складывая, учитываем, что $\cos^2\alpha_x + \cos^2\alpha_y + \cos^2\alpha_z = 1$:
+\begin{equation}
+	l^2 = \qty(m_x^2 + m_y^2 + m_z^2) \frac{\lambda^2}{4}
+\end{equation}
+Выразим частоту $\omega = \frac{2\pi c}{\lambda} = \frac{\pi c}{l} \sqrt{m_x^2 + m_y^2 + m_z^2}$. Каждой тройке целых положительных чисел $(m_x, m_y, m_z)$ соответствует свое колебание (мода). Введем радиус в пространстве мод:
+\begin{equation}
+	r = \sqrt{m_x^2 + m_y^2 + m_z^2} \implies \omega = \frac{\pi c}{l} r \implies r = \frac{l\omega}{\pi c}, \quad dr = \frac{l}{\pi c} d\omega
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.3]
+		\draw[->] (0,0) -- (3,0) node[right] {$m_x$};
+		\draw[->] (0,0) -- (0,3) node[above] {$m_z$};
+		\draw[->] (0,0) -- (-1.5,-1.5) node[below] {$m_y$};
+		
+		\draw[thick, blue] (2,0) arc (0:90:2);
+		\draw[thick, blue!50] (2,0) to[out=-110, in=10] (-0.7, -0.7) to[out=100, in=-110] (0,2);
+		\draw[thick, blue] (2.3,0) arc (0:90:2.3);
+		
+		\node at (1.5, 1.5) {$dN$};
+		\node[right] at (2.4, 0.5) {$dr$};
+	\end{tikzpicture}
+\end{figure}
+
+Количество мод $dN$ в интервале частот $(\omega, \omega + d\omega)$ равно числу точек в соответствующем слое толщиной $dr$ в положительном октанте сферы (так как $m_i > 0$):
+\begin{equation}
+	dN = 2 \cdot \frac{1}{8} \cdot 4\pi r^2 dr = \frac{\pi}{2} r^2 dr
+\end{equation}
+(Множитель 2 учитывает два независимых направления поляризации поперечной электромагнитной волны).
+
+Подставляя $r$ и $dr$:
+\begin{equation}
+	dN = \frac{\pi}{2} \qty(\frac{l\omega}{\pi c})^2 \qty(\frac{l}{\pi c} d\omega) = \frac{l^3 \omega^2}{\pi^2 c^3} d\omega = \frac{V \omega^2}{\pi^2 c^3} d\omega
+\end{equation}
+
+Согласно теореме классической статистической физики о равном распределении энергии по степеням свободы, на каждую моду (которая представляет собой электромагнитный осциллятор с двумя степенями свободы --- электрической и магнитной) приходится средняя энергия $\langle W \rangle = kT$.
+
+Тогда спектральная плотность энергии излучения $w_\omega = \frac{dw}{d\omega}$:
+\begin{equation}
+	w_\omega d\omega = \frac{dN \langle W \rangle}{V} = \frac{\omega^2}{\pi^2 c^3} kT d\omega \implies w_\omega = \frac{\omega^2}{\pi^2 c^3} kT
+\end{equation}
+Используя связь $r_\omega^* = \frac{c w_\omega}{4}$, получаем \textbf{закон Рэлея-Джинса}:
+\begin{equation}
+	r_\omega^*(T) = \frac{\omega^2}{4\pi^2 c^2} kT
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		\draw[->] (0,0) -- (4,0) node[right] {$\omega$};
+		\draw[->] (0,0) -- (0,3) node[above] {$r_\omega^*$};
+		
+		\draw[thick, red, samples=100, domain=0:2.4] plot (\x, {0.5 * \x^2}) node[above] {классика (Рэлей-Джинс)};
+		\draw[thick, blue, samples=100, domain=0.05:3.8] plot (\x, {2.5 * \x^3 / (exp(1.5*\x) - 1)}) node[above right] {эксперимент};
+		
+		\node[right, align=left] at (4.2, 1.5) {
+			$\text{При } \omega \to \infty$: \\
+			$r_\omega^* \to \infty$ --- \\
+			\textbf{ультрафиолетовая катастрофа}. \\
+			Классическая физика в тупике!
+		};
+	\end{tikzpicture}
+\end{figure}
+
+
+\section{Квантовая гипотеза Планка}
+
+В 1900 году Макс Планк предположил, что электромагнитная энергия излучается и поглощается не непрерывно, а дискретными порциями --- \textbf{квантами}:
+
+\begin{theorem}{Гипотеза Планка}{thm:planck}
+	Энергия кванта пропорциональна частоте излучения:
+	\begin{equation}
+		E = \hbar\omega = h\nu
+	\end{equation}
+	где $h \approx 6{,}63 \cdot 10^{-34} \ \si{\joule\second}$, $\hbar = \frac{h}{2\pi} \approx 1{,}05 \cdot 10^{-34} \ \si{\joule\second}$ --- постоянная Планка.
+\end{theorem}
+
+Тогда энергия осциллятора может принимать только дискретные значения: $W_n = n\hbar\omega$. По закону Больцмана, вероятность нахождения системы в состоянии с энергией $W_n$ пропорциональна $e^{-\frac{W_n}{kT}}$:
+\begin{equation}
+	f(W_n) = C e^{-\frac{n\hbar\omega}{kT}}
+\end{equation}
+Найдем константу $C$ из условия нормировки:
+\begin{equation}
+	\sum_{n=0}^{\infty} f(W_n) = 1 \implies C \sum_{n=0}^{\infty} e^{-n x} = 1, \quad \text{где } x = \frac{\hbar\omega}{kT}
+\end{equation}
+Используя сумму бесконечной геометрической прогрессии:
+\begin{equation}
+	\sum_{n=0}^{\infty} e^{-nx} = \frac{1}{1 - e^{-x}} \implies C = 1 - e^{-x}
+\end{equation}
+
+Вычислим среднее значение энергии осциллятора $\langle W \rangle$:
+\begin{equation}
+	\langle W \rangle = \sum_{n=0}^{\infty} W_n f(W_n) = (1 - e^{-x}) \hbar\omega \sum_{n=0}^{\infty} n e^{-nx}
+\end{equation}
+Применим математический прием: $\sum_{n=0}^{\infty} n e^{-nx} = -\dv{}{x} \qty(\sum_{n=0}^{\infty} e^{-nx}) = -\dv{}{x} \qty(\frac{1}{1-e^{-x}}) = \frac{e^{-x}}{(1-e^{-x})^2}$.
+\begin{equation}
+	\langle W \rangle = (1 - e^{-x}) \hbar\omega \frac{e^{-x}}{(1-e^{-x})^2} = \frac{\hbar\omega e^{-x}}{1 - e^{-x}} = \frac{\hbar\omega}{e^x - 1} = \frac{\hbar\omega}{e^{\frac{\hbar\omega}{kT}} - 1}
+\end{equation}
+
+Подставляя среднее значение энергии $\langle W \rangle$ в формулу для спектральной светимости $r_\omega = \frac{\omega^2}{4\pi^2 c^2} \langle W \rangle$, получаем знаменитую \textbf{формулу Планка}:
+\begin{equation}
+	r_\omega^*(T) = \frac{\hbar\omega^3}{4\pi^2 c^2} \cdot \frac{1}{e^{\frac{\hbar\omega}{kT}} - 1}
+\end{equation}
+
+\begin{nb}
+	Формула Планка полностью устраняет ультрафиолетовую катастрофу: при $\omega \to \infty$ знаменатель растет экспоненциально быстрее числителя, и $r_\omega^* \to 0$. При малых частотах ($\hbar\omega \ll kT$) она переходит в формулу Рэлея-Джинса.
+\end{nb}
+
+
+\section{Корпускулярные свойства света}
+
+\subsection{Фотоны}
+
+Свет представляет собой поток частиц --- \textbf{фотонов}, обладающих следующими свойствами:
+
+\begin{tcolorbox}[enhanced, colback=green!5, colframe=green!50!black, title=Свойства фотона]
+	\begin{align*}
+		&\text{Энергия:} && W = \hbar\omega \\
+		&\text{Импульс:} && \vec{p} = \hbar\vec{k} \qquad \qty(p = \frac{W}{c} = \frac{\hbar\omega}{c}) \\
+		&\text{Масса покоя:} && m_0 = 0 \\
+		&\text{Скорость:} && v = c
+	\end{align*}
+\end{tcolorbox}
+
+\subsection{Фотоэффект}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\begin{tikzpicture}[physics figure, scale=1.1]
+			% Лампа/колба
+			\draw[thick] (0,0) ellipse (1.2 and 0.6);
+			\draw[thick] (-1.2, 0) -- (-1.8, 0);
+			\draw[thick] (1.2, 0) -- (1.8, 0);
+			
+			% Электроды
+			\draw[ultra thick] (-0.8, -0.3) -- (-0.8, 0.3) node[above] {К};
+			\draw[ultra thick] (0.8, -0.3) -- (0.8, 0.3) node[above] {А};
+			
+			% Фотоны и электроны
+			\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (-1.4, 0.8) -- (-0.9, 0.3);
+			\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (-1.2, 1.0) -- (-0.7, 0.5);
+			\node[above] at (-1.3, 1.0) {$\hbar\omega$};
+			
+			\draw[->, blue, thick] (-0.7, 0.1) -- (-0.1, 0.1);
+			\draw[->, blue, thick] (-0.7, -0.2) -- (0.2, -0.1);
+			\fill[blue] (-0.7, 0.1) circle (1.5pt);
+			\fill[blue] (-0.7, -0.2) circle (1.5pt);
+		\end{tikzpicture}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\begin{tikzpicture}[physics figure, scale=1.1]
+			\draw[->] (-2,0) -- (2.5,0) node[right] {$U$};
+			\draw[->] (0,-0.5) -- (0,2) node[above] {$I$};
+			
+			\draw[thick, blue] (-1.5,0) to[out=10, in=180] (0.5,1.5) -- (2.2,1.5);
+			\draw[dashed] (-1.5,0) -- (-1.5, -0.3) node[below] {$U_3$};
+			\node[above] at (1.5, 1.5) {$I_{\text{нас}}$};
+			\node[align=left, below] at (-0.8, -0.5) {$U_3$ --- задерживающее\\ напряжение};
+		\end{tikzpicture}
+	\end{minipage}
+\end{figure}
+
+При фотоэффекте энергия фотона поглощается электроном и расходуется на совершение работы выхода из вещества $A_{\text{вых}}$ и сообщение ему кинетической энергии:
+\begin{equation}
+	\hbar\omega = A_{\text{вых}} + \frac{mv^2}{2}
+\end{equation}
+
+\subsection{Давление света}
+
+Фотоны, сталкиваясь с поверхностью тела, передают ей свой импульс. Рассмотрим поток фотонов, падающий под углом $\theta$ к нормали.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		\draw[ultra thick] (-1.5,0) -- (1.5,0);
+		\fill[pattern=north east lines] (-1.5, -0.3) rectangle (1.5,0);
+		
+		\draw[dashed] (0,0) -- (0,1.8) node[above] {нормаль};
+		\draw[->, red, ultra thick] (-1.2, 1.4) -- (0,0) node[midway, left] {$\vec{p}$};
+		\draw[->, red, ultra thick] (0,0) -- (1.2, 1.4) node[midway, right] {$\vec{p}'$};
+		
+		\draw (0,0.6) arc (90:130:0.6);
+		\node at (-0.25, 0.8) {$\theta$};
+	\end{tikzpicture}
+\end{figure}
+
+Изменение импульса одного фотона при соударении с зеркальной поверхностью (коэффициент отражения $\rho$):
+\begin{equation}
+	\Delta p_x = p_x' - p_x = \frac{\hbar\omega}{c}\cos\theta - \qty(-\frac{\hbar\omega}{c}\cos\theta) = \frac{\hbar\omega}{c}(1+\rho)\cos\theta
+\end{equation}
+Переданная сила $F_x = \frac{\Delta p_{\text{полн}}}{\Delta t}$. Давление света:
+\begin{equation}
+	P = w(1+\rho)\cos^2\theta
+\end{equation}
+где $w$ --- объемная плотность энергии электромагнитного поля.
+
+
+\section{Эффект Комптона}
+
+\begin{definition}{Эффект Комптона}{def:compton}
+	\textbf{Эффектом Комптона} называется упругое рассеяние коротковолнового электромагнитного излучения (рентгеновского и $\gamma$-излучения) на свободных (или слабосвязанных) электронах вещества, сопровождающееся увеличением длины волны.
+\end{definition}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		% Фотон до рассеяния
+		\draw[->, decorate, decoration={snake, amplitude=2pt, segment length=6pt}, red] (-2.5,0) -- (-0.2,0);
+		\node[above] at (-1.5,0.2) {$\frac{\hbar\omega_0}{c}$};
+		
+		% Электрон до рассеяния
+		\fill[blue] (0,0) circle (3pt) node[below] {$e^-$};
+		
+		% После рассеяния
+		\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (0,0) -- (1.8, 1.2);
+		\node[above] at (1.0, 0.9) {$\frac{\hbar\omega'}{c}$};
+		
+		\draw[->, thick, blue] (0,0) -- (2.0, -0.8) node[below right] {$\vec{p}_e'$};
+		
+		% Углы
+		\draw[dashed] (0,0) -- (2.2, 0);
+		\draw (0.6,0) arc (0:34:0.6);
+		\node at (0.8, 0.25) {$\theta$};
+		\draw (0.5,0) arc (0:-22:0.5);
+		\node at (0.7, -0.18) {$\varphi$};
+	\end{tikzpicture}
+\end{figure}
+
+Запишем законы сохранения энергии и импульса (в релятивистском виде):
+\begin{align}
+	&\hbar\omega_0 + m_e c^2 = \hbar\omega' + E_e \\
+	&\vec{p}_{\text{ф}} = \vec{p}_{\text{ф}}' + \vec{p}_e
+\end{align}
+Из векторного треугольника импульсов:
+\begin{equation}
+	p_e^2 = p_{\text{ф}}^2 + p_{\text{ф}}'^2 - 2p_{\text{ф}} p_{\text{ф}}'\cos\theta = \qty(\frac{\hbar\omega_0}{c})^2 + \qty(\frac{\hbar\omega'}{c})^2 - 2\frac{\hbar^2\omega_0\omega'}{c^2}\cos\theta
+\end{equation}
+После алгебраических преобразований получаем знаменитую формулу Комптона:
+\begin{equation}
+	\Delta\lambda = \lambda' - \lambda_0 = \frac{h}{m_e c}(1-\cos\theta) = \lambda_c(1-\cos\theta)
+\end{equation}
+где $\lambda_c = \frac{h}{m_e c} \approx 2{,}42 \cdot 10^{-12} \ \si{\meter}$ --- комптоновская длина волны электрона.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		\draw[->] (0,0) -- (4,0) node[right] {$\lambda$};
+		\draw[->] (0,0) -- (0,3) node[above] {$I$};
+		
+		\draw[thick, blue, samples=100, domain=0.2:3.5] plot (\x, {1.8*exp(-20*(\x-1.0)^2) + 2.5*exp(-15*(\x-2.1)^2)});
+		
+		\draw[dashed] (1.0, 0) -- (1.0, 1.8);
+		\draw[dashed] (2.1, 0) -- (2.1, 2.5);
+		
+		\node[below] at (1.0, 0) {$\lambda_0$};
+		\node[below] at (2.1, 0) {$\lambda'$};
+		
+		\draw[<->] (1.0, 1.2) -- (2.1, 1.2) node[midway, above] {$\Delta\lambda$};
+	\end{tikzpicture}
+	\caption{Спектр рассеянного излучения (два пика)}
+\end{figure}
+
+
+\section{Модель атома Бора}
+
+В 1913 году Нильс Бор предложил полуклассическую модель атома водорода, основанную на трех постулатах:
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		\fill[red] (0,0) circle (4pt) node[white, font=\scriptsize] {$+$};
+		\draw[dashed] (0,0) circle (0.8);
+		\draw[dashed] (0,0) circle (1.4);
+		
+		\fill[blue] (50:0.8) circle (2pt) node[above right] {$e^-$};
+		\draw[->, thick, blue] (50:0.8) -- ++(140:0.6) node[above] {$\vec{v}$};
+		
+		\draw[->] (0,0) -- (230:1.4) node[midway, left] {$r_n$};
+		\node at (1.5, 1.5) {$L = n\hbar$};
+	\end{tikzpicture}
+\end{figure}
+
+\begin{enumerate}
+	\item \textbf{Стационарные состояния:} электроны движутся по круговым орбитам, не излучая энергии. Момент импульса квантуется:
+	\begin{equation}
+		L_n = m v_n r_n = n\hbar
+	\end{equation}
+	\item \textbf{Правило частот:} излучение или поглощение происходит при переходе с одной орбиты на другую:
+	\begin{equation}
+		E_m - E_n = \hbar\omega
+	\end{equation}
+	\item \textbf{Динамика:} удерживающая сила --- кулоновская:
+	\begin{equation}
+		k\frac{q^2}{r^2} = \frac{m v^2}{r} \implies E = \frac{mv^2}{2} + U = -\frac{1}{2} k\frac{q^2}{r}
+	\end{equation}
+\end{enumerate}
+
+Выражая радиус $r_n$ и энергию стационарных уровней $E_n$:
+\begin{equation}
+	r_n = \frac{n^2 \hbar^2}{m q^2 k} = a_0 n^2, \qquad E_n = -\frac{R_y}{n^2}
+\end{equation}
+где $a_0 \approx 0{,}53 \cdot 10^{-10} \ \si{\meter}$ --- боровский радиус, $R_y = \frac{mq^4}{8\varepsilon_0^2 h^3 c} \approx 13{,}6 \ \si{\electronvolt}$ --- постоянная Ридберга.
+
+
+\section{Спонтанное и вынужденное излучение}
+
+В 1916 году Эйнштейн показал, что квантовые переходы между уровнями $E_n$ и $E_m$ могут происходить тремя путями:
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.1]
+		% Уровни
+		\draw[thick] (-2, 1.5) -- (8, 1.5) node[right] {$E_n$};
+		\draw[thick] (-2, -1.5) -- (8, -1.5) node[right] {$E_m$};
+		
+		% Спонтанное
+		\begin{scope}[shift={(0,0)}]
+			\fill[blue] (0,1.5) circle (2.5pt);
+			\draw[->, thick] (0, 1.4) -- (0, -1.4);
+			\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (0,0) -- (1.5, -0.5) node[right] {$\hbar\omega$};
+			\node[below] at (0, -1.8) {Спонтанное};
+		\end{scope}
+		
+		% Поглощение
+		\begin{scope}[shift={(3.5,0)}]
+			\fill[blue] (0,-1.5) circle (2.5pt);
+			\draw[->, thick] (0, -1.4) -- (0, 1.4);
+			\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (-1.5, -1.0) -- (-0.2, -1.4);
+			\node[below] at (0, -1.8) {Поглощение};
+		\end{scope}
+		
+		% Вынужденное
+		\begin{scope}[shift={(7,0)}]
+			\fill[blue] (0,1.5) circle (2.5pt);
+			\draw[->, thick] (0, 1.4) -- (0, -1.4);
+			\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (-1.5, 0.5) -- (-0.2, 0.1);
+			\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (0.2, -0.3) -- (1.5, -0.6);
+			\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (0.2, -0.6) -- (1.5, -0.9);
+			\node[below] at (0.8, -1.8) {Вынужденное};
+		\end{scope}
+	\end{tikzpicture}
+\end{figure}
+
+\begin{enumerate}
+	\item \textbf{Спонтанное излучение:} самопроизвольный переход возбужденного атома на нижний уровень. Происходит хаотично во времени, рождая некогерентные фотоны. Вероятность перехода за время $dt$: $dW = A_{nm} dt$.
+	\begin{equation}
+		\dv{N_n}{dt} = -A_{nm} N_n \implies N_n(t) = N_{n_0} e^{-t/\tau}, \quad \tau = \frac{1}{A_{nm}} \sim 10^{-8} \ \si{\second}
+	\end{equation}
+	\item \textbf{Поглощение:} переход на верхний уровень под действием внешнего излучения с объемной плотностью энергии $w$:
+	\begin{equation}
+		\dv{N_{nm}}{dt} = N_m B_{mn} w
+	\end{equation}
+	\item \textbf{Вынужденное (стимулированное) излучение:} переход возбужденного атома под действием внешнего фотона. Излученный фотон является \textbf{точной копией} (когерентным, сонаправленным и одинаково поляризованным) падающего фотона.
+	\begin{equation}
+		\dv{N_{nm}}{dt} = N_n B_{nm} w
+	\end{equation}
+\end{enumerate}
+
+В состоянии термодинамического равновесия число переходов вверх равно числу переходов вниз:
+\begin{equation}
+	N_m B_{mn} w = N_n (A_{nm} + B_{nm} w)
+\end{equation}
+Используя распределение Больцмана $\frac{N_n}{N_m} = e^{-\frac{\hbar\omega}{kT}}$ и устремляя $T \to \infty$ ($w \to \infty$), получаем соотношения Эйнштейна:
+\begin{equation}
+	B_{mn} = B_{nm}, \qquad \frac{A_{nm}}{B_{nm}} = \frac{\hbar\omega^3}{\pi^2 c^3}
+\end{equation}
+
+\subsection{Усиление света. Трехуровневая система (лазер)}
+
+Проходя через вещество, свет одновременно поглощается и усиливается за счет вынужденного излучения. Изменение интенсивности:
+\begin{equation}
+	\dv{I}{x} = \alpha I, \qquad \alpha \sim (N_2 - N_1)
+\end{equation}
+\begin{itemize}
+	\item Если $N_1 > N_2$ (термодинамическое равновесие) $\implies \alpha < 0$ --- \textbf{поглощение}.
+	\item Если $N_2 > N_1$ --- \textbf{инверсная заселенность уровней}, $\alpha > 0$ --- \textbf{усиление} (лазерный эффект).
+\end{itemize}
+
+В обычной двухуровневой системе невозможно получить устойчивую инверсную заселенность, поэтому используют трех- или четырехуровневые схемы.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.3]
+		% Уровни
+		\draw[thick] (0, 2) -- (4, 2) node[right] {$3$ (короткоживущий, $\tau \sim 10^{-8} \ \si{\second}$)};
+		\draw[thick] (0, 0.8) -- (4, 0.8) node[right] {$2$ (метастабильный, $\tau \sim 10^{-3} \ \si{\second}$)};
+		\draw[thick] (0, -1) -- (4, -1) node[right] {$1$ (основной)};
+		
+		% Накачка
+		\draw[->, ultra thick, green!60!black] (0.8, -1) -- (0.8, 2) node[midway, left] {Накачка};
+		
+		% Безызлучательный переход
+		\draw[->, dashed, red, thick] (2.0, 2) to[out=-60, in=60] (2.0, 0.8);
+		\node[right] at (2.2, 1.4) {Быстрый распад};
+		
+		% Лазерное излучение
+		\draw[->, ultra thick, blue] (3.2, 0.8) -- (3.2, -1);
+		\draw[->, decorate, decoration={snake, amplitude=1.5pt, segment length=5pt}, red] (3.2, -0.1) -- (4.2, -0.3) node[right] {$\hbar\omega_{\text{лазер}}$};
+	\end{tikzpicture}
+	\caption{Схема уровней трехуровневого лазера}
+\end{figure}
+
+Для генерации когерентного луча активное вещество помещают в \textbf{оптический резонатор} --- систему параллельных зеркал, обеспечивающих положительную обратную связь.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[physics figure, scale=1.2]
+		% Зеркала
+		\draw[ultra thick, fill=gray!30] (-2.5, -0.5) rectangle (-2.3, 0.5) node[above] {Глухое зеркало};
+		\draw[ultra thick, fill=gray!10] (2.3, -0.5) rectangle (2.5, 0.5) node[above] {Полупрозрачное зеркало};
+		
+		% Активная среда
+		\draw[thick, fill=blue!10] (-1.8, -0.3) rectangle (1.8, 0.3);
+		\node at (0,0) {Активная среда};
+		
+		% Лучи
+		\draw[<->, red, thick] (-2.2, 0.1) -- (2.2, 0.1);
+		\draw[<->, red, thick] (-2.2, -0.1) -- (2.2, -0.1);
+		\draw[->, ultra thick, red] (2.5, 0) -- (3.8, 0) node[right] {Лазерный луч};
+	\end{tikzpicture}
+\end{figure}
